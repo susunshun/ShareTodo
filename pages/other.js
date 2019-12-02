@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Style from "../static/Style";
+
 export default () => <div>
     {Style}
-    <h1>Next.js</h1>
-    <div>Welcome!!</div>
+    <h1>other Next.js</h1>
+    <p>this is other page</p>
     <div>
-        <Link href="/other">
-            <a>Goto other page</a>
+        <Link href="/">
+            <a>back to index page</a>
         </Link>
     </div>
 </div>
