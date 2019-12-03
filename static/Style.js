@@ -1,3 +1,6 @@
+import css from 'styled-jsx/css';
+import React from "react";
+
 export default <style>{`
     body{
         margin: 10px;
@@ -15,4 +18,4 @@ export default <style>{`
         color: #666;
         font-size: 16px;
     }
-`}</style>
+`}</style>;

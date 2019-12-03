@@ -1,12 +1,20 @@
 import Link from "next/link";
-import Style from "../static/Style";
-export default () => <div>
-    {Style}
-    <h1>Next.js</h1>
-    <div>Welcome!!</div>
-    <div>
-        <Link href="/other">
-            <a>Goto other page</a>
-        </Link>
-    </div>
-</div>
+import Layout from '../components/Layout'
+import React from "react";
+import styled from 'styled-components';
+
+export default () => (
+    <Layout header="Next" title="Top Page">
+        <p>Welcome to next.js</p>
+        <TestText>styled component txt</TestText>
+        <div>
+          <Link href="/other">
+              go to other page
+          </Link>
+        </div>
+    </Layout>
+);
+
+export const TestText = styled.div`
+  font-size: 100px;
+`;
