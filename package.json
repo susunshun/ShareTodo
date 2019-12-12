@@ -6,6 +6,8 @@
     "export": "next export"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "firebase": "^7.5.2",
     "next": "^9.1.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
