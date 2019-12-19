@@ -5,22 +5,23 @@ import Counter from '../components/Counter';
 import React from "react";
 import styled from 'styled-components';
 import Sampledata from "../components/Sampledata";
+import AddForm from "../components/AddForm";
 
 export default () => (
     <Layout header="Next" title="Top Page">
         <Counter/>
-        <p>Welcome to next.js</p>
         <TestText>styled component txt</TestText>
-        <Image fileName="mokumoku.jpeg" size="250"/>
+        <Image fileName="mokumoku.jpeg" size="50"/>
         <div>
             <Link href="/other">
                 go to other page
             </Link>
         </div>
+        <AddForm />
         <Sampledata />
     </Layout>
 );
 
 export const TestText = styled.div`
-  font-size: 100px;
+  font-size: 20px;
 `;
