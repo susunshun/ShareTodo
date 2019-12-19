@@ -8,8 +8,7 @@ import Sampledata from "../components/Sampledata";
 import AddForm from "../components/AddForm";
 
 export default () => (
-    <Layout header="Next" title="Top Page">
-        <Counter/>
+    <Layout header="最高のヘッダー" title="最高のページ">
         <TestText>styled component txt</TestText>
         <Image fileName="mokumoku.jpeg" size="50"/>
         <div>
