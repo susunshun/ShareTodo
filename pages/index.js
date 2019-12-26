@@ -22,8 +22,8 @@ export default () => (
                 go to other page
             </Link>
         </div>
-        <AddForm />
-        <Sampledata />
+        {/*<AddForm />*/}
+        {/*<Sampledata />*/}
     </Layout>
 );
 
