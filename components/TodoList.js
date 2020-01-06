@@ -12,7 +12,7 @@ class TodoList extends React.Component {
     return(
       <ul>
         {this.props.todos.map(todo => (
-          <Todo key={todo.id} {...todo} onClick={() => this.props.toggleTodo(todo.id)} />
+          <Todo key={todo.id} {...todo} onClick={() => this.props.toggleTodo(todo.id, todo.completed)} />
         ))}
       </ul>
     )
