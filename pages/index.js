@@ -3,14 +3,14 @@ import Layout from '../components/Layout';
 import Image from '../components/Image';
 import React from "react";
 import styled from 'styled-components';
-
-
 import VisibleTodoList from "../containers/VisibleTodoList"
+import AddTodo from "../containers/AddTodo"
 import Filter from "../components/Filter";
 
 export default () => (
     <Layout header="最高のヘッダー" title="最高のページ">
-        <VisibleTodoList />
+        <AddTodo/>
+        <VisibleTodoList/>
         <Filter/>
         <Image fileName="mokumoku.jpeg" size="50"/>
         <div>

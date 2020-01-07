@@ -1,19 +1,33 @@
 import {db} from '../lib/db';
 
-export const addTodo = (text, length) => async dispatch => {
+export const addTodo = text => async dispatch => {
+    let order = await new Promise((resolve, reject) => {
+        db.collection('users').orderBy("order", "desc").limit(1)
+            .get()
+            .then(snapshot => {
+                let latestOrder = 1;
+                snapshot.forEach((doc) => {
+                    latestOrder = doc.data().order
+                });
+                resolve(latestOrder + 1)
+            }).catch(error => {
+                reject()
+        })
+    });
+
     await new Promise(
         (resolve, reject) => {
             db.collection('users').add({
                 text: text,
                 completed: false,
-                order: length + 1
+                order: order
             }).then(doc => {
-                console.log(length)
+                console.log(order)
                 dispatch({
                     type: 'ADD_TODO',
                     id: doc.id,
                     text: text,
-                    order: length + 1
+                    order: order
                 });
                 resolve(doc.id);
             }).catch(error => {
