@@ -1,22 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Todo from './Todo'
-import { fetchTodo } from "../actions";
+import {fetchTodo, addTodo} from "../actions";
 
 class TodoList extends React.Component {
-  componentDidMount(){
-    this.props.fetchTodo();
-  }
+    componentDidMount() {
+        this.props.fetchTodo();
+    }
 
-  render(){
-    return(
-      <ul>
-        {this.props.todos.map(todo => (
-          <Todo key={todo.id} {...todo} onClick={() => this.props.toggleTodo(todo.id, todo.completed)} />
-        ))}
-      </ul>
-    )
-  }
+    render() {
+        return (
+            <div>
+                <div>
+                    <input
+                        type="text"
+                        defaultValue=""
+                        ref="inputText"/>
+                    <button onClick={() => this.props.addTodo(this.refs.inputText.value, this.props.todos.length)}> Add Todo</button>
+                </div>
+                <ul>
+                    {this.props.todos.map(todo => (
+                        <Todo key={todo.id} {...todo} onClick={() => this.props.toggleTodo(todo.id, todo.completed)}/>
+                    ))}
+                </ul>
+            </div>
+        )
+    }
 }
 
 TodoList.propTypes = {
@@ -28,7 +37,8 @@ TodoList.propTypes = {
             text: PropTypes.string.isRequired
         }).isRequired
     ).isRequired,
-    toggleTodo: PropTypes.func.isRequired
+    toggleTodo: PropTypes.func.isRequired,
+    addTodo: PropTypes.func.isRequired
 };
 
 export default TodoList

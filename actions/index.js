@@ -1,11 +1,27 @@
 import {db} from '../lib/db';
 
-let nextTodoId = 0;
-export const addTodo = text => ({
-    type: 'ADD_TODO',
-    id: nextTodoId++,
-    text
-});
+export const addTodo = (text, length) => async dispatch => {
+    await new Promise(
+        (resolve, reject) => {
+            db.collection('users').add({
+                text: text,
+                completed: false,
+                order: length + 1
+            }).then(doc => {
+                console.log(length)
+                dispatch({
+                    type: 'ADD_TODO',
+                    id: doc.id,
+                    text: text,
+                    order: length + 1
+                });
+                resolve(doc.id);
+            }).catch(error => {
+                reject(error)
+            })
+        }
+    )
+};
 
 export const setVisibilityFilter = filter => ({
     type: 'SET_VISIBILITY_FILTER',
@@ -13,17 +29,17 @@ export const setVisibilityFilter = filter => ({
 });
 
 export const toggleTodo = (id, completed) => async dispatch => {
+    dispatch({
+        type: 'TOGGLE_TODO',
+        id
+    });
     // TODO: 通信中はリストをdeactiveにしたほうがよさそう
     // 連打して複数リクエストすると表示とデータがずれるため
     await new Promise(
         (resolve, reject) => {
             db.collection('users').doc(id).update({
-                completed: completed
+                completed: !completed
             }).then(() => {
-                dispatch({
-                    type: 'TOGGLE_TODO',
-                    id
-                });
                 resolve(id);
             }).catch(error => {
                 reject(error)
