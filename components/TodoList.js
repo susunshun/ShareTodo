@@ -9,14 +9,22 @@ class TodoList extends React.Component {
     }
 
     render() {
+        const {userPost} = this.props;
+
         return (
             <div>
                 <div>
                     <input
                         type="text"
                         defaultValue=""
+                        value={userPost}
                         ref="inputText"/>
-                    <button onClick={() => this.props.addTodo(this.refs.inputText.value, this.props.todos.length)}> Add Todo</button>
+                    <button onClick={() => {
+                        this.props.addTodo(this.refs.inputText.value, this.props.todos.length)
+                        this.refs.inputText.value = ''
+                    }}>
+                        Add Todo
+                    </button>
                 </div>
                 <ul>
                     {this.props.todos.map(todo => (
