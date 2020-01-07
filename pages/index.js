@@ -15,7 +15,7 @@ export default () => (
         <Image fileName="mokumoku.jpeg" size="50"/>
         <div>
             <Link href="/other">
-                go to other page
+                <a>go to other page</a>
             </Link>
         </div>
     </Layout>
