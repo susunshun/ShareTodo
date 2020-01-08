@@ -1,5 +1,11 @@
 import {db} from '../lib/db';
 
+export const onDrop = () => async dispatch => {
+    // TODO: order変更のリクエストを実装する
+    // 複数人で操作した場合のチェック処理をしたほうがよさそう
+    console.log('dropped!!!!')
+};
+
 export const addTodo = text => async dispatch => {
     let order = await new Promise((resolve, reject) => {
         db.collection('users').orderBy("order", "desc").limit(1)
@@ -11,7 +17,7 @@ export const addTodo = text => async dispatch => {
                 });
                 resolve(latestOrder + 1)
             }).catch(error => {
-                reject()
+            reject()
         })
     });
 
@@ -96,3 +102,8 @@ export const fetchTodo = () => async dispatch => {
         payload: result
     })
 };
+
+function checkOrder() {
+    // TODO: 多人数の編集や同期ズレを修正するチェック処理を実装する
+    // 各リクエスト後に行う想定
+}

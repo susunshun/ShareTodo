@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Todo from './Todo'
+import {Container, Draggable} from 'react-smooth-dnd';
 import {fetchTodo} from "../actions";
 
 class TodoList extends React.Component {
@@ -10,11 +11,17 @@ class TodoList extends React.Component {
 
     render() {
         return (
-            <ul>
-                {this.props.todos.map(todo => (
-                    <Todo key={todo.id} {...todo} onClick={() => this.props.toggleTodo(todo.id, todo.completed)}/>
-                ))}
-            </ul>
+            <div>
+                <Container onDrop={this.props.onDrop}>
+                    {this.props.todos.map(todo => {
+                        return (
+                            <Draggable key={todo.id}>
+                                <Todo {...todo} onClick={() => this.props.toggleTodo(todo.id, todo.completed)}/>
+                            </Draggable>
+                        );
+                    })}
+                </Container>
+            </div>
         )
     }
 }
