@@ -38,7 +38,7 @@ export const Root = styled.div`
   background-color: rgba(255,255,255,0.5);
   font-size: 13px;
   height: 40px;
-  margin: 5px 10px;
+  margin-bottom: 10px;
   padding: 5px;
   border-radius: 4px;
 `;

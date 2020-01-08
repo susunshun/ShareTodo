@@ -5,5 +5,6 @@ export const GlobalStyle = createGlobalStyle`
     body{
         font-family: 'M PLUS Rounded 1c','ヒラギノ角ゴ Pro W3', Meiryo, メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
         color: #333333;
+        margin: 0;
     }
 `;

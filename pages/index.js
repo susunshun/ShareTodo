@@ -8,18 +8,24 @@ import AddTodo from "../containers/AddTodo"
 import Filter from "../components/Filter";
 
 export default () => (
-    <Layout header="最高のヘッダー" title="最高のページ">
-        <AddTodo/>
-        <VisibleTodoList/>
-        <Filter/>
-        <Image fileName="mokumoku.jpeg" size="50"/>
-        <div>
-            <Link href="/other">
-                <a>go to other page</a>
-            </Link>
-        </div>
+    <Layout title="買い物リスト">
+        <Content>
+            <AddTodo/>
+            <VisibleTodoList/>
+            <Filter/>
+            <Image fileName="mokumoku.jpeg" size="50"/>
+            <div>
+                <Link href="/other">
+                    <a>go to other page</a>
+                </Link>
+            </div>
+        </Content>
     </Layout>
 );
+
+export const Content = styled.div`
+    padding: 10px;
+`;
 
 export const TestText = styled.div`
   font-size: 20px;

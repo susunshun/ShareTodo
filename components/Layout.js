@@ -13,7 +13,7 @@ class Layout extends Component {
           <meta charSet='utf-8' />
           <meta name='viewport' content='initial-scale=1.0, width-device-width' />
         </Head>
-        <Header header={this.props.header} title={this.props.title}/>
+        <Header title={this.props.title} />
         {this.props.children}
         <Footer footer="最高のフッター"/>
       </Root>

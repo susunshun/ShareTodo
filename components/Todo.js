@@ -30,7 +30,7 @@ Todo.propTypes = {
 export const Root = styled.div`
   background-color: white;
   font-size: 13px;
-  margin: 1px 10px;
+  margin: 1px 0;
   padding: 5px;
   border-radius: 4px;
 `;
