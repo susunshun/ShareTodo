@@ -1,17 +1,66 @@
 import {db} from '../lib/db';
+import {order } from '../utils/listUtils';
 
-export const onDrop = () => async dispatch => {
+export const onDrop = dropResult => async dispatch => {
     // TODO: order変更のリクエストを実装する
     // 複数人で操作した場合のチェック処理をしたほうがよさそう
-    console.log('dropped!!!!')
+    let toOrder = dropResult.addedIndex + 1;
+    let fromOrder = dropResult.removedIndex + 1;
+
+    dispatch({
+        type: 'CHANGE_ORDER',
+        fromOrder: fromOrder,
+        toOrder: toOrder
+    });
+
+    let result = await new Promise((resolve, reject) => {
+        db.collection('users').orderBy("order")
+            .get()
+            .then(snapshot => {
+                let data = []
+                snapshot.forEach((doc) => {
+                    data.push(
+                        {
+                            id: doc.id,
+                            order: doc.data().order
+                        }
+                    )
+                });
+                resolve(data)
+            }).catch(error => {
+            reject([])
+        })
+    });
+    // TODO: ここでStateの件数と差分があったら処理中断してリロードしたい
+    // 「他の人が編集中です」的なアラート出して
+
+    let list = order(result, fromOrder, toOrder)
+    // TODO: トランザクション/バッチ処理にする
+    await Promise.all(list.map(async todo => {
+        return await updateOrder(todo.id, todo.order)
+    }));
 };
+
+async function updateOrder(id, order) {
+    await new Promise(
+        (resolve, reject) => {
+            db.collection('users').doc(id).update({
+                order: order
+            }).then(() => {
+                resolve(id);
+            }).catch(error => {
+                reject(error)
+            })
+        }
+    );
+}
 
 export const addTodo = text => async dispatch => {
     let order = await new Promise((resolve, reject) => {
         db.collection('users').orderBy("order", "desc").limit(1)
             .get()
             .then(snapshot => {
-                let latestOrder = 1;
+                let latestOrder = 0;
                 snapshot.forEach((doc) => {
                     latestOrder = doc.data().order
                 });
@@ -28,7 +77,6 @@ export const addTodo = text => async dispatch => {
                 completed: false,
                 order: order
             }).then(doc => {
-                console.log(order)
                 dispatch({
                     type: 'ADD_TODO',
                     id: doc.id,
@@ -85,7 +133,7 @@ export const fetchTodo = () => async dispatch => {
                     data.push(
                         {
                             id: doc.id,
-                            order: doc.data().id,
+                            order: doc.data().order,
                             text: doc.data().text,
                             completed: doc.data().completed
                         }

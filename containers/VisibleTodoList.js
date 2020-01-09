@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     toggleTodo: (id, completed) => dispatch(toggleTodo(id, completed)),
     fetchTodo: () => dispatch(fetchTodo()),
-    onDrop: () => dispatch(onDrop())
+    onDrop: (dropResult) => dispatch(onDrop(dropResult))
 });
 
 export default connect(

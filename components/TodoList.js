@@ -12,7 +12,7 @@ class TodoList extends React.Component {
     render() {
         return (
             <div>
-                <Container onDrop={this.props.onDrop}>
+                <Container onDrop={(dropResult) => this.props.onDrop(dropResult)}>
                     {this.props.todos.map(todo => {
                         return (
                             <Draggable key={todo.id}>
