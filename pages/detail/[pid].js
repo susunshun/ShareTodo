@@ -2,21 +2,19 @@ import Link from "next/link";
 import Layout from '../../components/Layout'
 import React from "react";
 import { useRouter } from 'next/router'
+import Detail from "../../containers/Detail";
 
-const Detail = () => {
+export default () => {
     const router = useRouter();
     const {pid} = router.query;
-    console.log(pid);
 
     return (
-        <Layout header="Detail" title="Detail Page">
-            <p>this is details page</p>
+        <Layout header="Detail" title='' deleteId={pid} back={() => router.push('/')}>
+            <Detail id={pid}>a</Detail>
             <hr/>
-            {pid}
             <Link href="/">
                 <button>back to main page</button>
             </Link>
         </Layout>
     )
 };
-export default Detail;

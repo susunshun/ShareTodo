@@ -1,5 +1,5 @@
 import {db} from '../lib/db';
-import {order } from '../utils/listUtils';
+import {order} from '../utils/listUtils';
 
 export const onDrop = dropResult => async dispatch => {
     // TODO: order変更のリクエストを実装する
@@ -116,6 +116,16 @@ export const toggleTodo = (id, completed) => async dispatch => {
     );
 };
 
+export const fetchDetail = (id) => async dispatch => {
+    console.log("fetch detail")
+    let todo = {text: 'はまち', id: 'abcde'};
+    dispatch({
+        type: 'FETCH_DETAIL',
+        todo
+    });
+    // TODO: docの取得
+    // TODO: dispatch
+};
 
 export const VisibilityFilters = {
     SHOW_ALL: 'SHOW_ALL',
@@ -124,6 +134,7 @@ export const VisibilityFilters = {
 };
 
 export const fetchTodo = () => async dispatch => {
+    console.log('fetch todo')
     let result = await new Promise((resolve, reject) => {
         db.collection('users').orderBy("order")
             .get()
@@ -151,7 +162,11 @@ export const fetchTodo = () => async dispatch => {
     })
 };
 
-function checkOrder() {
-    // TODO: 多人数の編集や同期ズレを修正するチェック処理を実装する
-    // 各リクエスト後に行う想定
-}
+export const deleteTodo = (id) => async dispatch => {
+    // TODO: DELETEのリクエスト処理を実装
+    console.log('delete todo');
+    dispatch({
+        type: 'DELETE_TODO',
+        id
+    })
+};

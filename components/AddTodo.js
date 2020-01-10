@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {addTodo} from "../actions";
 import styled from "styled-components";
 import AddIcon from '@material-ui/icons/Add';
 

@@ -1,4 +1,4 @@
-import {order } from '../utils/listUtils';
+import {order} from '../utils/listUtils';
 
 const todos = (state = [], action) => {
     switch (action.type) {
