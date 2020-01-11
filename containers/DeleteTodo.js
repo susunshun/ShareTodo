@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {deleteTodo} from '../actions';
 import DeleteTodo from "../components/DeleteTodo";
 
-// TODO:deleteに書き換える
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({

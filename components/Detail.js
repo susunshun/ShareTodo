@@ -19,9 +19,9 @@ class Detail extends React.Component {
 Detail.propTypes = {
     id: PropTypes.string.isRequired,
     todo: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            text: PropTypes.string.isRequired
-        }).isRequired
+        id: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired
+    }).isRequired
 };
 
 export default Detail

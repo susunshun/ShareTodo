@@ -9,7 +9,7 @@ class DeleteTodo extends React.Component {
                 <Delete onClick={() => {
                     this.props.deleteTodo(this.props.id);
                     this.props.back();
-                }} />
+                }}/>
             </Root>
         )
     }
