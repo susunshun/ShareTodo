@@ -13,12 +13,26 @@ class Layout extends Component {
                     <meta charSet='utf-8'/>
                     <meta name='viewport' content='initial-scale=1.0, width-device-width'/>
                 </Head>
-                <Header title={this.props.title} deleteId={this.props.deleteId} back={this.props.back}/>
-                {this.props.children}
+                {this.props.error.code ? <Header /> : <Header title={this.props.title} deleteId={this.props.deleteId} back={this.props.back} />}
+                {Page(this.props.error, this.props.children)}
+                <br/>
                 <Footer footer="最高のフッター"/>
             </Root>
         )
     }
+}
+
+function Page(error, children) {
+    if (error) {
+        switch (error.code) {
+            case 404:
+                // TODO: component作ってそれ返すようにする、<NotFound />的な
+                return "ページが見つかりません";
+            default:
+                break;
+        }
+    }
+    return children;
 }
 
 export const Root = styled.div`

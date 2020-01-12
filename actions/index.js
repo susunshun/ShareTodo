@@ -115,6 +115,10 @@ export const toggleTodo = (id, completed) => async dispatch => {
 };
 
 export const fetchDetail = (id) => async dispatch => {
+    dispatch({
+        type: 'NONE',
+        code: 200
+    });
     console.log("fetch detail")
     const ref = db.collection('users').doc(id);
     ref.get().then((doc)=>{
@@ -124,6 +128,11 @@ export const fetchDetail = (id) => async dispatch => {
                 todo: {...doc.data(), id: doc.id}
             });
         } else {
+            // TODO: ルーティングが変わったときにフィルター処理で行いたいよね
+            dispatch({
+                type: 'ERROR',
+                code: 404
+            });
             // TODO: 該当するタスクがなかったことの表示を行いたい
         }
     }).catch((error) => {
@@ -139,6 +148,11 @@ export const VisibilityFilters = {
 
 export const fetchTodo = () => async dispatch => {
     console.log('fetch todo')
+    // TODO: ルーティングが変わったときにフィルター処理で行いたいよね
+    dispatch({
+        type: 'NONE',
+        code: null
+    });
     let result = await new Promise((resolve, reject) => {
         db.collection('users').orderBy("order")
             .get()
@@ -159,7 +173,6 @@ export const fetchTodo = () => async dispatch => {
             reject([])
         })
     });
-
     dispatch({
         type: 'FETCH_TODO',
         payload: result
