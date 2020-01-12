@@ -2,8 +2,6 @@ import {db} from '../lib/db';
 import {order} from '../utils/listUtils';
 
 export const onDrop = dropResult => async dispatch => {
-    // TODO: order変更のリクエストを実装する
-    // 複数人で操作した場合のチェック処理をしたほうがよさそう
     let toOrder = dropResult.addedIndex + 1;
     let fromOrder = dropResult.removedIndex + 1;
 
@@ -118,13 +116,19 @@ export const toggleTodo = (id, completed) => async dispatch => {
 
 export const fetchDetail = (id) => async dispatch => {
     console.log("fetch detail")
-    let todo = {text: 'はまち', id: 'abcde'};
-    dispatch({
-        type: 'FETCH_DETAIL',
-        todo
+    const ref = db.collection('users').doc(id);
+    ref.get().then((doc)=>{
+        if(doc.exists) {
+            dispatch({
+                type: 'FETCH_DETAIL',
+                todo: {...doc.data(), id: doc.id}
+            });
+        } else {
+            // TODO: 該当するタスクがなかったことの表示を行いたい
+        }
+    }).catch((error) => {
+        // console.log(`データを取得できませんでした (${error})`);
     });
-    // TODO: docの取得
-    // TODO: dispatch
 };
 
 export const VisibilityFilters = {

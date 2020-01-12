@@ -9,8 +9,11 @@ class Detail extends React.Component {
     render() {
         return (
             <div>
-                {this.props.todo.id}
-                {this.props.todo.text}
+                id: {this.props.todo.id}
+                <br/>
+                text: {this.props.todo.text}
+                <br/>
+                memo: {this.props.todo.memo}
             </div>
         )
     }
