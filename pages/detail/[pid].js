@@ -11,10 +11,6 @@ export default () => {
     return (
         <Layout header="Detail" title='' deleteId={pid} back={() => router.push('/')}>
             <Detail id={pid}>a</Detail>
-            <hr/>
-            <Link href="/">
-                <button>back to main page</button>
-            </Link>
         </Layout>
     )
 };
