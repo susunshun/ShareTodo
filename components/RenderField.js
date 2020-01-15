@@ -11,14 +11,14 @@ export class RenderField extends React.Component {
         return (
             <Root>
                 {type === 'textarea' ?
-                    <TextArea aria-label="empty textarea" {...input} placeholder={label} type={type}/>
+                    <TextArea aria-label="empty textarea" {...input} placeholder={label} type={type} rows="3" />
                     // <textarea {...input}  placeholder={label} type={type} />
                     : type === 'select' ?
                         <select {...input} type={type}>{this.props.children}</select>
                         :
                         <Input {...input} type={type} placeholder={label}/>
                 }
-                {((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+                {((error && <Error>{error}</Error>) || (warning && <span>{warning}</span>))}
             </Root>
         );
     }
@@ -26,10 +26,11 @@ export class RenderField extends React.Component {
 
 export const Root = styled.div`
     display: inline-block;
-      width: 100%;
+    width: 100%;
 `;
 
 export const Input = styled.input`
+  font-family : inherit;
   font-size: 16px;
   ::placeholder {
     font-size: 16px;
@@ -55,4 +56,15 @@ export const TextArea = styled(TextareaAutosize)`
   width: 100%;
   line-height: 1.5em;
   // padding-top: 5px;
+      @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap');
+    
+        font-family: 'M PLUS Rounded 1c','ヒラギノ角ゴ Pro W3', Meiryo, メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+        color: #333333;
+        margin: 0;
+    
+`;
+
+export const Error = styled.span`
+    color: red;
+    font-size: 8px;
 `;

@@ -47,6 +47,7 @@ export const AddButton = styled(AddIcon)`
 `;
 
 export const InputArea = styled.input`
+  font-family : inherit;
   font-size: 13px;
   ::placeholder {
     font-size: 13px;

@@ -6,23 +6,22 @@ import Link from "next/link";
 import Layout from "./Layout";
 
 
-const Todo = ({onClick, onLongPress, completed, text, id}) => (
+const Todo = ({toggleTodo, onClick, completed, text}) => (
     <Root>
         <Checkbox
             checked={completed}
             value="secondary"
             color="primary"
             inputProps={{'aria-label': 'secondary checkbox'}}
-            onClick={onClick}
+            onClick={toggleTodo}
         />
-        <Link href={"/detail/" + id}>
-            <TodoText
-                style={{
-                    textDecoration: completed ? 'line-through' : 'none'
-                }}>
-                {text}
-            </TodoText>
-        </Link>
+        <TodoText
+            onClick={onClick}
+            style={{
+                textDecoration: completed ? 'line-through' : 'none'
+            }}>
+            {text}
+        </TodoText>
     </Root>
 
 );
