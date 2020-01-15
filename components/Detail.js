@@ -11,22 +11,13 @@ class Detail extends React.Component {
 
     submit = v => {
         console.log(v)
-    }
+    };
 
     render() {
         return (
             <Root>
-                <DetailForm onSubmit={this.submit} initialValues={{text: this.props.todo.text, memo: this.props.todo.memo}} />
-                {/*<InputArea*/}
-                {/*    type="text"*/}
-                {/*    defaultValue=""*/}
-                {/*    placeholder="Todoを追加"*/}
-                {/*    value={this.props.todo.text}*/}
-                {/*    ref="inputText"/>*/}
-                {/*<TextField id="standard-basic" label="todo" value={this.props.todo.text}/>*/}
-                {/*<br/>*/}
-                {/*<br/>*/}
-                {/*<TextField id="outlined-basic" label="Outlined" value={this.props.todo.memo}/>*/}
+                <DetailForm onSubmit={this.submit}
+                            initialValues={{text: this.props.todo.text, memo: this.props.todo.memo}}/>
             </Root>
         )
     }
@@ -42,21 +33,6 @@ Detail.propTypes = {
 
 export const Root = styled.div`
   padding: 20px;
-`;
-
-export const InputArea = styled.input`
-  font-size: 20px;
-  ::placeholder {
-    font-size: 13px;
-  }
-  outline: none;
-  :focus {
-    border: 0px;  
-  }
-  border:none;
-  background:none;
-  -webkit-appearance:none;
-  width: 100%;
 `;
 
 export default Detail
