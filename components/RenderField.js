@@ -11,7 +11,7 @@ export class RenderField extends React.Component {
         return (
             <Root>
                 {type === 'textarea' ?
-                    <TextArea aria-label="empty textarea" {...input} placeholder={label} type={type} rows="3" />
+                    <TextArea aria-label="empty textarea" {...input} placeholder={label} type={type} rows="3"/>
                     // <textarea {...input}  placeholder={label} type={type} />
                     : type === 'select' ?
                         <select {...input} type={type}>{this.props.children}</select>
@@ -48,23 +48,16 @@ export const Input = styled.input`
 export const TextArea = styled(TextareaAutosize)`
   outline: none;
   :focus {
-    border: 0px;  
+    border: 0px;
   }
   border:none;
   background:none;
   -webkit-appearance:none;
   width: 100%;
   line-height: 1.5em;
-  // padding-top: 5px;
-      @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap');
-    
-        font-family: 'M PLUS Rounded 1c','ヒラギノ角ゴ Pro W3', Meiryo, メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
-        color: #333333;
-        margin: 0;
-    
 `;
 
-export const Error = styled.span`
+export const Error = styled.div`
     color: red;
     font-size: 8px;
 `;

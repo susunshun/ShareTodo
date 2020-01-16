@@ -7,7 +7,7 @@ import Create from "../containers/Create";
 
 export default () => {
     return (
-        <Layout title="Create page">
+        <Layout title="TODOリストの作成">
             <Content>
                 <Create />
             </Content>
