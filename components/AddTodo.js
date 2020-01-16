@@ -4,21 +4,36 @@ import styled from "styled-components";
 import AddIcon from '@material-ui/icons/Add';
 
 class AddTodo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.textInput = React.createRef();
+    }
+
     render() {
         const {userPost} = this.props;
 
         return (
             <Root>
-                <AddButton onClick={() => {
-                    this.props.addTodo(this.refs.inputText.value);
-                    this.refs.inputText.value = ''
-                }}/>
+                <AddButton
+                    onClick={() => {
+                        this.props.addTodo(this.textInput.current.value);
+                        this.textInput.current.value = ''
+                    }}
+
+                />
                 <InputArea
                     type="text"
                     defaultValue=""
                     placeholder="Todoを追加"
                     value={userPost}
-                    ref="inputText"/>
+                    ref={this.textInput}
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') { // Enterキー除外
+                            this.props.addTodo(this.textInput.current.value);
+                            this.textInput.current.value = ''
+                        }
+                    }}
+                />
             </Root>
 
         )
