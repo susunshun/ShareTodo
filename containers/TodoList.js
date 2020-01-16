@@ -23,10 +23,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleTodo: (id, completed) => dispatch(toggleTodo(id, completed)),
-    fetchTodo: () => dispatch(fetchTodo()),
-    onDrop: (dropResult) => dispatch(onDrop(dropResult)),
-    toggleModal : (todo) => dispatch(toggleModal(todo))
+    toggleTodo: (id, completed, pid) => dispatch(toggleTodo(id, completed, pid)),
+    fetchTodo: (pid) => dispatch(fetchTodo(pid)),
+    onDrop: (dropResult, pid) => dispatch(onDrop(dropResult, pid)),
+    toggleModal: (todo) => dispatch(toggleModal(todo))
 });
 
 export default connect(

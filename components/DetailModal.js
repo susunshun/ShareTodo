@@ -10,10 +10,10 @@ class DetailModal extends React.Component {
                 onBackgroundClick={() => this.props.toggleModal(this.props.todo)}
                 onEscapeKeydown={() => this.props.toggleModal(this.props.todo)}>
                 <DetailForm
-                    onSubmit={todo => this.props.updateTodo(todo)}
-                    deleteTodo={() => this.props.deleteTodo(this.props.todo.id)}
+                    onSubmit={todo => this.props.updateTodo(todo, this.props.pid)}
+                    deleteTodo={() => this.props.deleteTodo(this.props.todo.id, this.props.pid)}
                     close={() => this.props.toggleModal(this.props.todo)}
-                    update={todo => this.props.updateTodo(todo)}
+                    // update={todo => this.props.updateTodo(todo)}
                     initialValues={this.props.todo}
                 />
             </Root>

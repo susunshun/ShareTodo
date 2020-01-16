@@ -10,7 +10,7 @@ import {IconButton} from '@material-ui/core';
 
 
 let DetailForm = props => {
-    const {handleSubmit, deleteTodo, close, update} = props;
+    const {handleSubmit, deleteTodo, close} = props;
     return (
         <Root>
             <form onSubmit={handleSubmit}>

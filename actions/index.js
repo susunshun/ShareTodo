@@ -1,7 +1,25 @@
 import {db} from '../lib/db';
 import {order} from '../utils/listUtils';
 
-export const onDrop = dropResult => async dispatch => {
+export const create = title => async dispatch => {
+    await new Promise(
+        (resolve, reject) => {
+            db.collection('events').add({
+                title: title
+            }).then(doc => {
+                dispatch({
+                    type: 'CREATE',
+                    id: doc.id
+                });
+                resolve(doc.id);
+            }).catch(error => {
+                reject(error)
+            })
+        }
+    );
+};
+
+export const onDrop = (dropResult, pid) => async dispatch => {
     let toOrder = dropResult.addedIndex + 1;
     let fromOrder = dropResult.removedIndex + 1;
 
@@ -12,7 +30,7 @@ export const onDrop = dropResult => async dispatch => {
     });
 
     let result = await new Promise((resolve, reject) => {
-        db.collection('todos').orderBy("order")
+        db.collection('events').doc(pid).collection("todos").orderBy("order")
             .get()
             .then(snapshot => {
                 let data = []
@@ -35,14 +53,14 @@ export const onDrop = dropResult => async dispatch => {
     let list = order(result, fromOrder, toOrder)
     // TODO: トランザクション/バッチ処理にする
     await Promise.all(list.map(async todo => {
-        return await updateOrder(todo.id, todo.order)
+        return await updateOrder(todo.id, todo.order, pid)
     }));
 };
 
-async function updateOrder(id, order) {
+async function updateOrder(id, order, pid) {
     await new Promise(
         (resolve, reject) => {
-            db.collection('todos').doc(id).update({
+            db.collection('events').doc(pid).collection("todos").doc(id).update({
                 order: order
             }).then(() => {
                 resolve(id);
@@ -53,9 +71,9 @@ async function updateOrder(id, order) {
     );
 }
 
-export const addTodo = text => async dispatch => {
+export const addTodo = (text, pid) => async dispatch => {
     let order = await new Promise((resolve, reject) => {
-        db.collection('todos').orderBy("order", "desc").limit(1)
+        db.collection('events').doc(pid).collection("todos").orderBy("order", "desc").limit(1)
             .get()
             .then(snapshot => {
                 let latestOrder = 0;
@@ -70,7 +88,7 @@ export const addTodo = text => async dispatch => {
 
     await new Promise(
         (resolve, reject) => {
-            db.collection('todos').add({
+            db.collection('events').doc(pid).collection("todos").add({
                 text: text,
                 completed: false,
                 order: order
@@ -94,7 +112,7 @@ export const setVisibilityFilter = filter => ({
     filter
 });
 
-export const toggleTodo = (id, completed) => async dispatch => {
+export const toggleTodo = (id, completed, pid) => async dispatch => {
     dispatch({
         type: 'TOGGLE_TODO',
         id
@@ -103,7 +121,7 @@ export const toggleTodo = (id, completed) => async dispatch => {
     // 連打して複数リクエストすると表示とデータがずれるため
     await new Promise(
         (resolve, reject) => {
-            db.collection('todos').doc(id).update({
+            db.collection('events').doc(pid).collection("todos").doc(id).update({
                 completed: !completed
             }).then(() => {
                 resolve(id);
@@ -146,14 +164,14 @@ export const VisibilityFilters = {
     SHOW_ACTIVE: 'SHOW_ACTIVE'
 };
 
-export const fetchTodo = () => async dispatch => {
+export const fetchTodo = (pid) => async dispatch => {
     // TODO: ルーティングが変わったときにフィルター処理で行いたいよね
     dispatch({
-        type: 'NONE',
+        type: 'ERROR_NONE',
         code: null
     });
     let result = await new Promise((resolve, reject) => {
-        db.collection('todos').orderBy("order")
+        db.collection('events').doc(pid).collection("todos").orderBy("order")
             .get()
             .then(snapshot => {
                 let data = []
@@ -179,8 +197,8 @@ export const fetchTodo = () => async dispatch => {
     })
 };
 
-export const deleteTodo = (id) => async dispatch => {
-    const ref = db.collection('todos').doc(id);
+export const deleteTodo = (id, pid) => async dispatch => {
+    const ref = db.collection('events').doc(pid).collection("todos").doc(id);
     ref.delete().then(() => {
         dispatch({
             type: 'DELETE_TODO',
@@ -196,10 +214,10 @@ export const deleteTodo = (id) => async dispatch => {
     });
 };
 
-export const updateTodo = (todo) => async dispatch => {
+export const updateTodo = (todo, pid) => async dispatch => {
     await new Promise(
         (resolve, reject) => {
-            db.collection('todos').doc(todo.id).update({
+            db.collection('events').doc(pid).collection("todos").doc(todo.id).update({
                 text: todo.text,
                 memo: todo.memo
             }).then(() => {

@@ -3,23 +3,13 @@ import Layout from '../containers/Layout';
 import Image from '../components/Image';
 import React from "react";
 import styled from 'styled-components';
-import VisibleTodoList from "../containers/TodoList"
-import AddTodo from "../containers/AddTodo"
-import Filter from "../components/Filter";
+import Create from "../containers/Create";
 
 export default () => {
     return (
-        <Layout title="買い物リスト">
+        <Layout title="Create page">
             <Content>
-                <AddTodo/>
-                <VisibleTodoList/>
-                <Filter/>
-                <Image fileName="mokumoku.jpeg" size="50"/>
-                <div>
-                    <Link href="/other">
-                        <a>go to other page</a>
-                    </Link>
-                </div>
+                <Create />
             </Content>
         </Layout>
     )
