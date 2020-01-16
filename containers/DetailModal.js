@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {toggleModal} from '../actions';
+import {toggleModal, deleteTodo} from '../actions';
 import DetailModal from "../components/DetailModal";
 
 const mapStateToProps = state => ({
@@ -9,14 +9,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleModal:(todo) => dispatch(toggleModal(todo))
+    toggleModal: (todo) => dispatch(toggleModal(todo)),
+    deleteTodo: (id) => dispatch(deleteTodo(id))
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(DetailModal)
-
 
 
 // openModal(todo) {

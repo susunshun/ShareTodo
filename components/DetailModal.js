@@ -5,28 +5,23 @@ import DetailForm from "./DetailForm";
 class DetailModal extends React.Component {
     render() {
         return (
-                <Root
-                    isOpen={this.props.modalIsOpen}
-                    onBackgroundClick={() => this.props.toggleModal(this.props.todo)}
-                    onEscapeKeydown={() => this.props.toggleModal(this.props.todo)}>
-                    <DetailForm
-                        onSubmit={(v) => this.props.toggleModal(this.props.todo)}
-                        deleteTodo={() => {
-                            window.alert('delete!')
-                            this.props.toggleModal(this.props.todo)
-                        }}
-                        close={() => this.props.toggleModal(this.props.todo)}
-                        update={() => this.props.toggleModal(this.props.todo)}
-                        initialValues={{text: this.props.todo.text, memo: this.props.todo.id}}
-                    />
-                </Root>
+            <Root
+                isOpen={this.props.modalIsOpen}
+                onBackgroundClick={() => this.props.toggleModal(this.props.todo)}
+                onEscapeKeydown={() => this.props.toggleModal(this.props.todo)}>
+                <DetailForm
+                    onSubmit={(v) => this.props.toggleModal(this.props.todo)}
+                    deleteTodo={() => this.props.deleteTodo(this.props.todo.id)}
+                    close={() => this.props.toggleModal(this.props.todo)}
+                    update={() => this.props.toggleModal(this.props.todo)}
+                    initialValues={{text: this.props.todo.text, memo: this.props.todo.id}}
+                />
+            </Root>
         )
     }
 }
 
-DetailModal.propTypes = {
-
-};
+DetailModal.propTypes = {};
 
 export const Root = Modal.styled`
   width: 90%;

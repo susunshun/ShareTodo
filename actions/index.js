@@ -121,8 +121,8 @@ export const fetchDetail = (id) => async dispatch => {
     });
     console.log("fetch detail")
     const ref = db.collection('users').doc(id);
-    ref.get().then((doc)=>{
-        if(doc.exists) {
+    ref.get().then((doc) => {
+        if (doc.exists) {
             dispatch({
                 type: 'FETCH_DETAIL',
                 todo: {...doc.data(), id: doc.id}
@@ -136,7 +136,7 @@ export const fetchDetail = (id) => async dispatch => {
             // TODO: 該当するタスクがなかったことの表示を行いたい
         }
     }).catch((error) => {
-        // console.log(`データを取得できませんでした (${error})`);
+        console.log(`データを取得できませんでした (${error})`);
     });
 };
 
@@ -180,12 +180,20 @@ export const fetchTodo = () => async dispatch => {
 };
 
 export const deleteTodo = (id) => async dispatch => {
-    // TODO: DELETEのリクエスト処理を実装
-    console.log('delete todo');
-    dispatch({
-        type: 'DELETE_TODO',
-        id
-    })
+    const ref = db.collection('users').doc(id);
+    ref.delete().then(() => {
+        dispatch({
+            type: 'DELETE_TODO',
+            id
+        });
+        dispatch({
+            type: 'TOGGLE_MODAL',
+            todo: {}
+        });
+    }).catch((error) => {
+        // TODO: 削除エラーを表示する
+        console.log(`データを削除できませんでした (${error})`);
+    });
 };
 
 export const toggleModal = (todo) => async dispatch => {
