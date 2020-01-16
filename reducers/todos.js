@@ -11,6 +11,7 @@ const todos = (state = [], action) => {
                     id: action.id,
                     text: action.text,
                     order: action.order,
+                    memo: '',
                     completed: false
                 }
             ];
@@ -30,6 +31,10 @@ const todos = (state = [], action) => {
             );
         case 'DELETE_TODO':
             return state.filter(todo => todo.id !== action.id);
+        case 'UPDATE_TODO':
+            return state.map(todo =>
+                todo.id === action.todo.id ? action.todo : todo
+            );
         default:
             return state
     }

@@ -1,4 +1,4 @@
-const todo = (state = {id: '', text: ''}, action) => {
+const todo = (state = {}, action) => {
     switch (action.type) {
         case 'FETCH_DETAIL':
             return action.todo;

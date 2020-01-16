@@ -35,7 +35,8 @@ TodoList.propTypes = {
             id: PropTypes.string.isRequired,
             order: PropTypes.number,
             completed: PropTypes.bool.isRequired,
-            text: PropTypes.string.isRequired
+            text: PropTypes.string.isRequired,
+            memo: PropTypes.string
         }).isRequired
     ).isRequired,
     toggleTodo: PropTypes.func.isRequired,

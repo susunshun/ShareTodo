@@ -164,6 +164,7 @@ export const fetchTodo = () => async dispatch => {
                             id: doc.id,
                             order: doc.data().order,
                             text: doc.data().text,
+                            memo: doc.data().memo,
                             completed: doc.data().completed
                         }
                     )
@@ -194,6 +195,30 @@ export const deleteTodo = (id) => async dispatch => {
         // TODO: 削除エラーを表示する
         console.log(`データを削除できませんでした (${error})`);
     });
+};
+
+export const updateTodo = (todo) => async dispatch => {
+    await new Promise(
+        (resolve, reject) => {
+            db.collection('users').doc(todo.id).update({
+                text: todo.text,
+                memo: todo.memo
+            }).then(() => {
+                dispatch({
+                    type: 'UPDATE_TODO',
+                    todo
+                });
+                dispatch({
+                    type: 'TOGGLE_MODAL',
+                    todo: {}
+                });
+                resolve();
+            }).catch(error => {
+                console.log(`データを更新できませんでした (${error})`);
+                reject(error)
+            })
+        }
+    );
 };
 
 export const toggleModal = (todo) => async dispatch => {

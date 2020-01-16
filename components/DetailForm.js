@@ -10,10 +10,10 @@ import {IconButton} from '@material-ui/core';
 
 
 let DetailForm = props => {
-    const {onSubmit, deleteTodo, close, update} = props;
+    const {handleSubmit, deleteTodo, close, update} = props;
     return (
         <Root>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleSubmit}>
                 <Title>
                     <TodoText>
                         <Field name="text" type="text"
@@ -22,7 +22,7 @@ let DetailForm = props => {
                         />
                     </TodoText>
                     <IconButton aria-label="delete" onClick={deleteTodo}>
-                        <DeleteIcon  color="secondary" style={{width: 20}}/>
+                        <DeleteIcon color="secondary" style={{width: 20}}/>
                     </IconButton>
                 </Title>
                 <Memo>
@@ -35,7 +35,9 @@ let DetailForm = props => {
                 </Memo>
                 <ButtonGroup>
                     <CancelButton onClick={close}>cancel</CancelButton>
-                    <ApplyButton color="primary" onClick={update} disabled={props.invalid}>apply</ApplyButton>
+                    <ApplyButton color="primary"
+                                 type="submit"
+                                 disabled={props.invalid}>apply</ApplyButton>
                 </ButtonGroup>
             </form>
         </Root>
@@ -69,6 +71,7 @@ export const Notes = styled.div`
 export const Memo = styled.div`
     // margin-top: 10px;
     margin-left: 20px;
+    margin-right: 40px;
     display:flex;
     align-items: flex-start;
     flex-direction:row;
