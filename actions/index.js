@@ -1,5 +1,4 @@
 import {db} from '../lib/db';
-import {order} from '../utils/listUtils';
 
 export const create = title => async dispatch => {
     await new Promise(
@@ -20,8 +19,8 @@ export const create = title => async dispatch => {
 };
 
 export const onDrop = (dropResult, pid) => async dispatch => {
-    let toOrder = dropResult.addedIndex + 1;
-    let fromOrder = dropResult.removedIndex + 1;
+    let toOrder = dropResult.addedIndex;
+    let fromOrder = dropResult.removedIndex;
 
     dispatch({
         type: 'CHANGE_ORDER',
@@ -47,17 +46,22 @@ export const onDrop = (dropResult, pid) => async dispatch => {
             reject([])
         })
     });
+    let insertIndex = toOrder > fromOrder ? toOrder + 1 : toOrder;
+    let deleteIndex = toOrder > fromOrder ? fromOrder : fromOrder + 1;
+    let list = result.slice(0, result.length);
+    list.splice(insertIndex, 0, result[fromOrder]);
+    list.splice(deleteIndex, 1);
+
     // TODO: ここでStateの件数と差分があったら処理中断してリロードしたい
     // 「他の人が編集中です」的なアラート出して
-
-    let list = order(result, fromOrder, toOrder)
     // TODO: トランザクション/バッチ処理にする
-    await Promise.all(list.map(async todo => {
-        return await updateOrder(todo.id, todo.order, pid)
+    await Promise.all(list.map(async (todo, index) => {
+        return await updateOrder(todo.id, index, pid)
     }));
 };
 
 async function updateOrder(id, order, pid) {
+    console.log(id)
     await new Promise(
         (resolve, reject) => {
             db.collection('events').doc(pid).collection("todos").doc(id).update({
@@ -198,6 +202,25 @@ export const fetchTodo = (pid) => async dispatch => {
 };
 
 export const deleteTodo = (id, pid) => async dispatch => {
+    // let result = await new Promise((resolve, reject) => {
+    //     db.collection('events').doc(pid).collection("todos").orderBy("order")
+    //         .get()
+    //         .then(snapshot => {
+    //             let data = []
+    //             snapshot.forEach((doc) => {
+    //                 data.push(
+    //                     {
+    //                         id: doc.id,
+    //                         order: doc.data().order
+    //                     }
+    //                 )
+    //             });
+    //             resolve(data)
+    //         }).catch(error => {
+    //         reject([])
+    //     })
+    // });
+
     const ref = db.collection('events').doc(pid).collection("todos").doc(id);
     ref.delete().then(() => {
         dispatch({

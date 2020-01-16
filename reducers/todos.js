@@ -1,5 +1,3 @@
-import {order} from '../utils/listUtils';
-
 const todos = (state = [], action) => {
     switch (action.type) {
         case 'FETCH_TODO':
@@ -16,14 +14,14 @@ const todos = (state = [], action) => {
                 }
             ];
         case 'CHANGE_ORDER':
-            let list = order(state, action.fromOrder, action.toOrder)
-
-            list.sort(function (a, b) {
-                if (a.order < b.order) return -1;
-                if (a.order > b.order) return 1;
-                return 0;
+            let insertIndex = action.toOrder > action.fromOrder ? action.toOrder + 1 : action.toOrder;
+            let deleteIndex = action.toOrder > action.fromOrder ? action.fromOrder : action.fromOrder + 1;
+            let list = state.slice(0, state.length);
+            list.splice(insertIndex, 0, state[action.fromOrder]);
+            list.splice(deleteIndex, 1);
+            list.map((todo, index) => {
+                todo.order = index;
             });
-            console.log(list);
             return list;
         case 'TOGGLE_TODO':
             return state.map(todo =>
