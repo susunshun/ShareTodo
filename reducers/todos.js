@@ -28,7 +28,13 @@ const todos = (state = [], action) => {
                 todo.id === action.id ? {...todo, completed: !todo.completed} : todo
             );
         case 'DELETE_TODO':
-            return state.filter(todo => todo.id !== action.id);
+            console.log(state);
+            let deletedList = state.filter(todo => todo.id !== action.id).map((todo, index) => {
+                todo.order = index;
+                return todo;
+            });
+            console.log(deletedList);
+            return deletedList;
         case 'UPDATE_TODO':
             return state.map(todo =>
                 todo.id === action.todo.id ? action.todo : todo

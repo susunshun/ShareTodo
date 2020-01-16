@@ -202,39 +202,50 @@ export const fetchTodo = (pid) => async dispatch => {
 };
 
 export const deleteTodo = (id, pid) => async dispatch => {
-    // let result = await new Promise((resolve, reject) => {
-    //     db.collection('events').doc(pid).collection("todos").orderBy("order")
-    //         .get()
-    //         .then(snapshot => {
-    //             let data = []
-    //             snapshot.forEach((doc) => {
-    //                 data.push(
-    //                     {
-    //                         id: doc.id,
-    //                         order: doc.data().order
-    //                     }
-    //                 )
-    //             });
-    //             resolve(data)
-    //         }).catch(error => {
-    //         reject([])
-    //     })
-    // });
-
-    const ref = db.collection('events').doc(pid).collection("todos").doc(id);
-    ref.delete().then(() => {
-        dispatch({
-            type: 'DELETE_TODO',
-            id
-        });
-        dispatch({
-            type: 'TOGGLE_MODAL',
-            todo: {}
-        });
-    }).catch((error) => {
-        // TODO: 削除エラーを表示する
-        console.log(`データを削除できませんでした (${error})`);
+    let result = await new Promise((resolve, reject) => {
+        db.collection('events').doc(pid).collection("todos").orderBy("order")
+            .get()
+            .then(snapshot => {
+                let data = []
+                snapshot.forEach((doc) => {
+                    data.push(
+                        {
+                            id: doc.id,
+                            order: doc.data().order
+                        }
+                    )
+                });
+                resolve(data)
+            }).catch(error => {
+            reject([])
+        })
     });
+
+    let list = result.filter(todo => todo.id !== id);
+
+    //　TODO:トランザクション処理にしたい
+    await new Promise((resolve, reject) => {
+        const ref = db.collection('events').doc(pid).collection("todos").doc(id);
+        ref.delete().then(() => {
+            dispatch({
+                type: 'DELETE_TODO',
+                id
+            });
+            dispatch({
+                type: 'TOGGLE_MODAL',
+                todo: {}
+            });
+            resolve();
+        }).catch((error) => {
+            // TODO: 削除エラーを表示する
+            reject();
+            console.log(`データを削除できませんでした (${error})`);
+        })
+    });
+
+    await Promise.all(list.map(async (todo, index) => {
+        return await updateOrder(todo.id, index, pid)
+    }));
 };
 
 export const updateTodo = (todo, pid) => async dispatch => {
