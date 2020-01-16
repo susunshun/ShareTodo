@@ -12,7 +12,7 @@ export const onDrop = dropResult => async dispatch => {
     });
 
     let result = await new Promise((resolve, reject) => {
-        db.collection('users').orderBy("order")
+        db.collection('todos').orderBy("order")
             .get()
             .then(snapshot => {
                 let data = []
@@ -42,7 +42,7 @@ export const onDrop = dropResult => async dispatch => {
 async function updateOrder(id, order) {
     await new Promise(
         (resolve, reject) => {
-            db.collection('users').doc(id).update({
+            db.collection('todos').doc(id).update({
                 order: order
             }).then(() => {
                 resolve(id);
@@ -55,7 +55,7 @@ async function updateOrder(id, order) {
 
 export const addTodo = text => async dispatch => {
     let order = await new Promise((resolve, reject) => {
-        db.collection('users').orderBy("order", "desc").limit(1)
+        db.collection('todos').orderBy("order", "desc").limit(1)
             .get()
             .then(snapshot => {
                 let latestOrder = 0;
@@ -70,7 +70,7 @@ export const addTodo = text => async dispatch => {
 
     await new Promise(
         (resolve, reject) => {
-            db.collection('users').add({
+            db.collection('todos').add({
                 text: text,
                 completed: false,
                 order: order
@@ -103,7 +103,7 @@ export const toggleTodo = (id, completed) => async dispatch => {
     // 連打して複数リクエストすると表示とデータがずれるため
     await new Promise(
         (resolve, reject) => {
-            db.collection('users').doc(id).update({
+            db.collection('todos').doc(id).update({
                 completed: !completed
             }).then(() => {
                 resolve(id);
@@ -120,7 +120,7 @@ export const fetchDetail = (id) => async dispatch => {
         code: 200
     });
     console.log("fetch detail")
-    const ref = db.collection('users').doc(id);
+    const ref = db.collection('todos').doc(id);
     ref.get().then((doc) => {
         if (doc.exists) {
             dispatch({
@@ -147,14 +147,13 @@ export const VisibilityFilters = {
 };
 
 export const fetchTodo = () => async dispatch => {
-    console.log('fetch todo')
     // TODO: ルーティングが変わったときにフィルター処理で行いたいよね
     dispatch({
         type: 'NONE',
         code: null
     });
     let result = await new Promise((resolve, reject) => {
-        db.collection('users').orderBy("order")
+        db.collection('todos').orderBy("order")
             .get()
             .then(snapshot => {
                 let data = []
@@ -181,7 +180,7 @@ export const fetchTodo = () => async dispatch => {
 };
 
 export const deleteTodo = (id) => async dispatch => {
-    const ref = db.collection('users').doc(id);
+    const ref = db.collection('todos').doc(id);
     ref.delete().then(() => {
         dispatch({
             type: 'DELETE_TODO',
@@ -200,7 +199,7 @@ export const deleteTodo = (id) => async dispatch => {
 export const updateTodo = (todo) => async dispatch => {
     await new Promise(
         (resolve, reject) => {
-            db.collection('users').doc(todo.id).update({
+            db.collection('todos').doc(todo.id).update({
                 text: todo.text,
                 memo: todo.memo
             }).then(() => {
