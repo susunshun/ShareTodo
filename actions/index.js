@@ -187,3 +187,10 @@ export const deleteTodo = (id) => async dispatch => {
         id
     })
 };
+
+export const toggleModal = (todo) => async dispatch => {
+    dispatch({
+        type: 'TOGGLE_MODAL',
+        todo
+    })
+};

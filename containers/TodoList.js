@@ -1,9 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {toggleTodo} from '../actions'
 import TodoList from '../components/TodoList'
 import {VisibilityFilters} from '../actions'
-import {fetchTodo, onDrop} from '../actions';
+import {fetchTodo, onDrop, toggleModal, toggleTodo} from '../actions';
 
 const getVisibleTodos = (todos, filter) => {
     switch (filter) {
@@ -18,13 +17,16 @@ const getVisibleTodos = (todos, filter) => {
     }
 };
 const mapStateToProps = state => ({
-    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+    todos: getVisibleTodos(state.todos, state.visibilityFilter),
+    modalIsOpen: state.modal.modalIsOpen,
+    todo: state.modal.todo
 });
 
 const mapDispatchToProps = dispatch => ({
     toggleTodo: (id, completed) => dispatch(toggleTodo(id, completed)),
     fetchTodo: () => dispatch(fetchTodo()),
-    onDrop: (dropResult) => dispatch(onDrop(dropResult))
+    onDrop: (dropResult) => dispatch(onDrop(dropResult)),
+    toggleModal : (todo) => dispatch(toggleModal(todo))
 });
 
 export default connect(

@@ -21,8 +21,8 @@ let DetailForm = props => {
                                validate={[required, maxLength20]}
                         />
                     </TodoText>
-                    <IconButton aria-label="delete">
-                        <DeleteIcon onClick={deleteTodo} color="secondary" style={{width: 20}}/>
+                    <IconButton aria-label="delete" onClick={deleteTodo}>
+                        <DeleteIcon  color="secondary" style={{width: 20}}/>
                     </IconButton>
                 </Title>
                 <Memo>
