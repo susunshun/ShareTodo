@@ -16,8 +16,10 @@ class AddTodo extends React.Component {
             <Root>
                 <AddButton
                     onClick={() => {
-                        this.props.addTodo(this.textInput.current.value, this.props.pid);
-                        this.textInput.current.value = ''
+                        if (this.textInput.current.value) {
+                            this.props.addTodo(this.textInput.current.value, this.props.pid);
+                            this.textInput.current.value = ''
+                        }
                     }}
 
                 />
@@ -28,7 +30,7 @@ class AddTodo extends React.Component {
                     value={userPost}
                     ref={this.textInput}
                     onKeyPress={(e) => {
-                        if (e.key === 'Enter') { // Enterキー除外
+                        if (e.key === 'Enter' && this.textInput.current.value) { // Enterキー除外
                             this.props.addTodo(this.textInput.current.value, this.props.pid);
                             this.textInput.current.value = ''
                         }
