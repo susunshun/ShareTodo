@@ -3,7 +3,7 @@ import Layout from '../containers/Layout';
 import Image from '../components/Image';
 import React from "react";
 import styled from 'styled-components';
-import VisibleTodoList from "../containers/VisibleTodoList"
+import VisibleTodoList from "../containers/TodoList"
 import AddTodo from "../containers/AddTodo"
 import Filter from "../components/Filter";
 
