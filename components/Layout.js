@@ -13,10 +13,10 @@ class Layout extends Component {
                     <meta charSet='utf-8'/>
                     <meta name='viewport' content='initial-scale=1.0, width-device-width'/>
                 </Head>
-                {this.props.error.code ? <Header /> : <Header title={this.props.title} deleteId={this.props.deleteId} back={this.props.back} />}
+                {this.props.error.code ? <Header /> : <Header hideHeader={this.props.hideHeader} title={this.props.title} deleteId={this.props.deleteId} back={this.props.back} />}
                 {Page(this.props.error, this.props.children)}
                 <br/>
-                <Footer footer="最高のフッター"/>
+                {/*<Footer footer="最高のフッター"/>*/}
             </Root>
         )
     }
@@ -37,6 +37,7 @@ function Page(error, children) {
 
 export const Root = styled.div`
   background-color: #b0c4de;
+  min-height: 100vh;
 `;
 
 export default Layout;

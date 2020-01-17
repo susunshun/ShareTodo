@@ -22,7 +22,10 @@ export default () => {
 };
 
 export const Content = styled.div`
+    min-height: 100vh;
     padding: 70px 10px 10px 10px;
+    background-image: url(".././static/background2.jpeg");
+    background-size:cover;
 `;
 
 export const TestText = styled.div`

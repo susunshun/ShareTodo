@@ -70,7 +70,6 @@ export const TitleInput = styled.input`
 `;
 
 export const Error = styled.div`
-    margin-top:0px;
     height: 10px;
 `;
 export const ErrorMessage = styled.span`
@@ -79,18 +78,18 @@ export const ErrorMessage = styled.span`
 `;
 
 export const Root = styled.form`
+    height: 100vh;
     width: 100%;
     display:flex;
     align-items: center;
     flex-direction:column;
-    justify-content: space-between;
+    justify-content: center;
 `;
 
 const Title = styled.div`
     width: 70%;
     padding: 10px;
-    margin-top: 40px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 `;
 
 export const CreateButton = styled(Button)`
@@ -103,6 +102,7 @@ export const LinkRoot = styled.div`
     display:flex;
     align-items: center;
     flex-direction:column;
+    justify-content: center;
 `;
 
 export const LinkButton = styled(Button)`

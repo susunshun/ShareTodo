@@ -9,15 +9,17 @@ class Header extends Component {
     render() {
         return (
             <Root>
-                <AppBar position="static">
-                    <Toolbar>
-                        {this.props.deleteId ? <ArrowBackIcon onClick={this.props.back}/> : ''}
-                        <Title>{this.props.title}</Title>
-                        <Delete>
-                            {this.props.deleteId ? <DeleteTodo id={this.props.deleteId} back={this.props.back}/> : ''}
-                        </Delete>
-                    </Toolbar>
-                </AppBar>
+                {this.props.hideHeader ? '' :
+                    <AppBar position="static">
+                        <Toolbar>
+                            {this.props.deleteId ? <ArrowBackIcon onClick={this.props.back}/> : ''}
+                            <Title>{this.props.title}</Title>
+                            <Delete>
+                                {this.props.deleteId ?
+                                    <DeleteTodo id={this.props.deleteId} back={this.props.back}/> : ''}
+                            </Delete>
+                        </Toolbar>
+                    </AppBar>}
             </Root>
         );
     }

@@ -7,7 +7,7 @@ import Create from "../containers/Create";
 
 export default () => {
     return (
-        <Layout title="TODOリストの作成">
+        <Layout hideHeader={true} title="TODOリストの作成">
             <Content>
                 <Create />
             </Content>
@@ -17,6 +17,9 @@ export default () => {
 
 export const Content = styled.div`
     padding: 10px;
+    height: 100vh;
+    background-image: url("./static/background2.jpeg");
+    background-size:cover;
 `;
 
 export const TestText = styled.div`
