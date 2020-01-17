@@ -4,15 +4,13 @@ import styled from 'styled-components';
 class Footer extends Component {
   render() {
     return(
-      <footer>
-        <Hoge>{this.props.footer}</Hoge>
-      </footer>
+        <Root>{this.props.footer}</Root>
     );
   }
 }
 export default Footer;
 
-const Hoge = styled.div`
+const Root = styled.footer`
   width:100%;
-  background-color: aqua;
+  background-color: white;
 `;

@@ -8,18 +8,28 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 class Header extends Component {
     render() {
         return (
-            <AppBar position="static">
-                <Toolbar>
-                    {this.props.deleteId ? <ArrowBackIcon onClick={this.props.back}/> : ''}
-                    <Title>{this.props.title}</Title>
-                    <Delete>
-                        {this.props.deleteId ? <DeleteTodo id={this.props.deleteId} back={this.props.back}/> : ''}
-                    </Delete>
-                </Toolbar>
-            </AppBar>
+            <Root>
+                <AppBar position="static">
+                    <Toolbar>
+                        {this.props.deleteId ? <ArrowBackIcon onClick={this.props.back}/> : ''}
+                        <Title>{this.props.title}</Title>
+                        <Delete>
+                            {this.props.deleteId ? <DeleteTodo id={this.props.deleteId} back={this.props.back}/> : ''}
+                        </Delete>
+                    </Toolbar>
+                </AppBar>
+            </Root>
         );
     }
 }
+
+export const Root = styled.div`
+   z-index: 100;
+   position:fixed;
+   display: block;
+   width: 100%;
+   
+`;
 
 export const Title = styled.div`
    width: 100%;

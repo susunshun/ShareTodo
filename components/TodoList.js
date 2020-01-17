@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Todo from './Todo'
 import {Container, Draggable} from 'react-smooth-dnd'
 import DetailModal from '../containers/DetailModal';
+import styled from "styled-components";
 
 class TodoList extends React.Component {
     componentDidMount() {
@@ -11,7 +12,7 @@ class TodoList extends React.Component {
 
     render() {
         return (
-            <div>
+            <Root>
                 <DetailModal pid={this.props.pid}/>
                 <Container onDrop={(dropResult) => this.props.onDrop(dropResult, this.props.pid)}>
                     {this.props.todos.map(todo => {
@@ -24,7 +25,7 @@ class TodoList extends React.Component {
                         );
                     })}
                 </Container>
-            </div>
+            </Root>
         )
     }
 }
@@ -42,5 +43,9 @@ TodoList.propTypes = {
     toggleTodo: PropTypes.func.isRequired,
     toggleModal: PropTypes.func.isRequired
 };
+
+export const Root = styled.div`
+    overflow: scroll visible;
+`;
 
 export default TodoList
