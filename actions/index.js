@@ -101,7 +101,8 @@ export const addTodo = (text, pid) => async dispatch => {
                     type: 'ADD_TODO',
                     id: doc.id,
                     text: text,
-                    order: order
+                    order: order,
+                    memo: ""
                 });
                 resolve(doc.id);
             }).catch(error => {
