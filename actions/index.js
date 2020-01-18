@@ -273,6 +273,27 @@ export const updateTodo = (todo, pid) => async dispatch => {
     );
 };
 
+export const fetchEvent = (pid) => async dispatch => {
+    const ref = db.collection('events').doc(pid);
+    ref.get().then((doc) => {
+        if (doc.exists) {
+            dispatch({
+                type: 'FETCH_EVENT',
+                event: doc.data()
+            });
+        } else {
+            // TODO: ルーティングが変わったときにフィルター処理で行いたいよね
+            dispatch({
+                type: 'ERROR',
+                code: 404
+            });
+            // TODO: 該当するタスクがなかったことの表示を行いたい
+        }
+    }).catch((error) => {
+        console.log(`データを取得できませんでした (${error})`);
+    });
+};
+
 export const toggleModal = (todo) => async dispatch => {
     dispatch({
         type: 'TOGGLE_MODAL',

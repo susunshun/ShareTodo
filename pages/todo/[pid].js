@@ -1,6 +1,7 @@
 import Layout from '../../containers/Layout'
 import React from "react";
 import {useRouter} from 'next/router'
+import EventTitle from "../../containers/EventTitle";
 import TodoList from "../../containers/TodoList"
 import AddTodo from "../../containers/AddTodo"
 import Filter from "../../components/Filter";
@@ -11,11 +12,12 @@ export default () => {
     const {pid} = router.query;
 
     return (
-        <Layout title={pid}>
+        <Layout title="ここにロゴが入る">
             <Content>
-                <AddTodo pid={pid}/>
+                <EventTitle pid={pid} />
+                <AddTodo pid={pid} />
+                <TodoList pid={pid} />
                 <Filter/>
-                <TodoList pid={pid}/>
             </Content>
         </Layout>
     )
