@@ -13,7 +13,9 @@ class Header extends Component {
                     <AppBar position="static">
                         <Toolbar>
                             {this.props.deleteId ? <ArrowBackIcon onClick={this.props.back}/> : ''}
-                            <Title>{this.props.title}</Title>
+                            <Title>
+                                <img height="40px;" src='../static/logo_white.png'/>
+                            </Title>
                             <Delete>
                                 {this.props.deleteId ?
                                     <DeleteTodo id={this.props.deleteId} back={this.props.back}/> : ''}
