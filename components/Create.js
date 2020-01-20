@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
 import CreateForm from "./CreateForm";
-import {Content} from "../pages";
 
 class Create extends React.Component {
     render() {
@@ -9,10 +8,11 @@ class Create extends React.Component {
             <Root>
                 <Description>
                     <TitleSpan>
-                        Let's start
+                        TODO作ってすぐ共有。
                     </TitleSpan>
                     <DetailSpan>
-                        共有できるTODOリストを作成してみましょう
+                        ShareTodoはTODOリストを作成してすぐ共有できます。
+                        買い物メモ、タスクリスト、etc...まずは気軽に作成してみましょう。
                     </DetailSpan>
                 </Description>
                 <CreateForm
@@ -31,19 +31,25 @@ export const Root = styled.div`
 `;
 
 export const TitleSpan = styled.span`
-    font-size: 30px;
+    width: 80%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 25px;
 `;
 
 export const DetailSpan = styled.span`
-    font-size: 13px;
+    width: 80%;
+    margin-bottom: 30px;
+    font-size: 15px;
 `;
 
 export const Description = styled.div`
     width:100%;
-    color: white;
-    position: fixed;
+    // color: white;
     display:flex;
     flex-direction:column;
+    align-items: center;
+    justify-content: start;
 `;
 
 export default Create

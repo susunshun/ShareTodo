@@ -1,22 +1,20 @@
 import React, {Component} from 'react';
 import Head from 'next/head';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import styled from 'styled-components';
 
 class Layout extends Component {
     render() {
         return (
-            <Root>
+            <Root {...this.props}>
                 <Head>
                     <title>{this.props.title}</title>
                     <meta charSet='utf-8'/>
                     <meta name='viewport' content='initial-scale=1.0, width-device-width'/>
                 </Head>
-                {this.props.error.code ? <Header /> : <Header hideHeader={this.props.hideHeader} title={this.props.title} deleteId={this.props.deleteId} back={this.props.back} />}
-                {Page(this.props.error, this.props.children)}
+                {this.props.error.code ? <Header /> : <Header iconColor={this.props.iconColor} hideHeader={this.props.hideHeader} title={this.props.title} deleteId={this.props.deleteId} back={this.props.back} />}
+                <Content>{Page(this.props.error, this.props.children)}</Content>
                 <br/>
-                {/*<Footer footer="最高のフッター"/>*/}
             </Root>
         )
     }
@@ -36,8 +34,14 @@ function Page(error, children) {
 }
 
 export const Root = styled.div`
-  background-color: #b0c4de;
-  min-height: 100vh;
+    background-color: #b0c4de;
+    min-height: 100vh;
+    background-image: url(".././static/${props => props.backgroundImage}");
+    background-size:cover;
+`;
+
+export const Content = styled.div`
+    padding:70px 10px 10px 10px;
 `;
 
 export default Layout;

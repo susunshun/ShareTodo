@@ -78,7 +78,6 @@ export const ErrorMessage = styled.span`
 `;
 
 export const Root = styled.form`
-    height: 100vh;
     width: 100%;
     display:flex;
     align-items: center;
@@ -87,14 +86,13 @@ export const Root = styled.form`
 `;
 
 const Title = styled.div`
-    width: 70%;
+    width: 80%;
     padding: 10px;
     margin-bottom: 30px;
 `;
 
 export const CreateButton = styled(Button)`
-    width: 70%;
-    // border:none;
+    width: 80%;
 `;
 
 export const LinkRoot = styled.div`

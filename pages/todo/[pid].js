@@ -12,7 +12,7 @@ export default () => {
     const {pid} = router.query;
 
     return (
-        <Layout title="ここにロゴが入る">
+        <Layout title="ここにロゴが入る" backgroundImage="background2.jpeg" iconColor="white">
             <Content>
                 <EventTitle pid={pid} />
                 <AddTodo pid={pid} />
@@ -25,11 +25,8 @@ export default () => {
 
 export const Content = styled.div`
     min-height: 100vh;
-    padding: 70px 10px 10px 10px;
-    background-image: url(".././static/background2.jpeg");
-    background-size:cover;
 `;
 
 export const TestText = styled.div`
-  font-size: 20px;
+    font-size: 20px;
 `;

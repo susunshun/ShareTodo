@@ -1,38 +1,38 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import DeleteTodo from "../containers/DeleteTodo"
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 class Header extends Component {
     render() {
         return (
-            <Root>
+            <Root {...this.props}>
                 {this.props.hideHeader ? '' :
-                    <AppBar position="static">
-                        <Toolbar>
+                        <div>
                             {this.props.deleteId ? <ArrowBackIcon onClick={this.props.back}/> : ''}
                             <Title>
-                                <img height="40px;" src='../static/logo_white.png'/>
+                                <img height="40px;" src={"../static/logo_" + this.props.iconColor + ".png"}/>
                             </Title>
                             <Delete>
                                 {this.props.deleteId ?
                                     <DeleteTodo id={this.props.deleteId} back={this.props.back}/> : ''}
                             </Delete>
-                        </Toolbar>
-                    </AppBar>}
+                        </div>
+                }
             </Root>
         );
     }
 }
 
 export const Root = styled.div`
-   z-index: 100;
-   position:fixed;
-   display: block;
-   width: 100%;
-   
+    z-index: 100;
+    position:fixed;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
 `;
 
 export const Title = styled.div`
