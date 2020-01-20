@@ -5,6 +5,7 @@ import DetailModal from "../components/DetailModal";
 
 const mapStateToProps = state => ({
     modalIsOpen: state.modal.modalIsOpen,
+    modalType : state.modal.modalType,
     todo: state.modal.todo
 });
 

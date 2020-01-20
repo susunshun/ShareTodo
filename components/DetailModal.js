@@ -6,7 +6,7 @@ class DetailModal extends React.Component {
     render() {
         return (
             <Root
-                isOpen={this.props.modalIsOpen}
+                isOpen={this.props.modalIsOpen && this.props.modalType === 'TODO'}
                 onBackgroundClick={() => this.props.toggleModal(this.props.todo)}
                 onEscapeKeydown={() => this.props.toggleModal(this.props.todo)}>
                 <DetailForm

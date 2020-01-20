@@ -314,8 +314,15 @@ export const updateEventTitle = (title, pid) => async dispatch => {
 };
 
 export const toggleModal = (todo) => async dispatch => {
-    dispatch({
-        type: 'TOGGLE_MODAL',
-        todo
-    })
+    if (todo) {
+        dispatch({
+            type: 'TOGGLE_MODAL',
+            todo
+        })
+    } else {
+        dispatch({
+            type: 'TOGGLE_SHARE_MODAL'
+        })
+    }
 };
+
