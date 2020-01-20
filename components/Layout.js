@@ -41,7 +41,7 @@ export const Root = styled.div`
 `;
 
 export const Content = styled.div`
-    padding:70px 10px 10px 10px;
+    padding: 10px;
 `;
 
 export default Layout;

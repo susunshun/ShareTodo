@@ -26,7 +26,6 @@ class Header extends Component {
 
 export const Root = styled.div`
     z-index: 100;
-    position:fixed;
     display: flex;
     align-items: center;
     justify-content: start;
