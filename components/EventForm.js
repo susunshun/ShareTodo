@@ -24,7 +24,7 @@ let EventForm = props => {
     return (
         <Root>
             <form onSubmit={handleSubmit}>
-                <Field name="title" type="text"
+                <Field name="title" type="text" color="white"
                        component={RenderField} label='TODOを入力'
                        validate={[required, maxLength20]}
                 />

@@ -7,7 +7,7 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
  */
 export class RenderField extends React.Component {
     render() {
-        const {input, label, type, meta: {touched, error, warning}} = this.props;
+        const {input, label, type, color, meta: {touched, error, warning}} = this.props;
         return (
             <Root>
                 {type === 'textarea' ?
@@ -16,7 +16,7 @@ export class RenderField extends React.Component {
                     : type === 'select' ?
                         <select {...input} type={type}>{this.props.children}</select>
                         :
-                        <Input {...input} type={type} placeholder={label}/>
+                        <Input {...input} type={type} placeholder={label} color={color} />
                 }
                 {((error && <Error>{error}</Error>) || (warning && <span>{warning}</span>))}
             </Root>
@@ -43,6 +43,7 @@ export const Input = styled.input`
   background:none;
   -webkit-appearance:none;
   width: 100%;
+  color: ${props => props.color};
 `;
 
 export const TextArea = styled(TextareaAutosize)`

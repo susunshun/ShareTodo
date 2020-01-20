@@ -294,6 +294,25 @@ export const fetchEvent = (pid) => async dispatch => {
     });
 };
 
+export const updateEventTitle = (title, pid) => async dispatch => {
+    await new Promise(
+        (resolve, reject) => {
+            db.collection('events').doc(pid).update({
+                title: title
+            }).then(() => {
+                dispatch({
+                    type: 'UPDATE_EVENT_TITLE',
+                    title
+                });
+                resolve();
+            }).catch(error => {
+                console.log(`データを更新できませんでした (${error})`);
+                reject(error)
+            })
+        }
+    );
+};
+
 export const toggleModal = (todo) => async dispatch => {
     dispatch({
         type: 'TOGGLE_MODAL',

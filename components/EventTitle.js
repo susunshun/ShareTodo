@@ -1,11 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from "styled-components";
 import ShareIcon from '@material-ui/icons/Share';
-import {maxLength20, required} from "../utils/Validation";
-import {RenderField} from "./RenderField";
-import {Field, reduxForm} from 'redux-form'
-import DetailForm from "./DetailForm";
 import EventForm from "./EventForm";
 
 class EventTitle extends React.Component {
@@ -16,7 +11,9 @@ class EventTitle extends React.Component {
     render() {
         return (
             <Root>
-                <EventForm onSubmit={() => console.log('hi')} initialValues={this.props.event}/>
+                <EventForm
+                    onSubmit={event => this.props.updateEventTitle(event.title, this.props.pid)}
+                    initialValues={this.props.event}/>
                 <Icon>
                     <ShareIcon style={{}}/>
                 </Icon>
@@ -42,6 +39,7 @@ export const Root = styled.div`
 export const Icon = styled(ShareIcon)`
     height: 14px;
     padding-right: 10px;
+    color:white;
 `;
 
 export default EventTitle
