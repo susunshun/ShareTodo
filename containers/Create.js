@@ -4,7 +4,8 @@ import {create} from '../actions';
 import Create from "../components/Create";
 
 const mapStateToProps = state => ({
-    url: state.create.url
+    url: state.create.url,
+    isLoading: state.loading.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

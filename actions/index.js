@@ -1,6 +1,9 @@
 import {db} from '../lib/db';
 
 export const create = title => async dispatch => {
+    dispatch({
+        type: 'REQUEST_FETCH'
+    });
     await new Promise(
         (resolve, reject) => {
             db.collection('events').add({
@@ -10,8 +13,14 @@ export const create = title => async dispatch => {
                     type: 'CREATE',
                     id: doc.id
                 });
+                dispatch({
+                    type: 'SUCCESS_FETCH'
+                });
                 resolve(doc.id);
             }).catch(error => {
+                dispatch({
+                    type: 'FAILED_FETCH'
+                });
                 reject(error)
             })
         }

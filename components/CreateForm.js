@@ -6,12 +6,13 @@ import Button from '@material-ui/core/Button';
 import Link from "next/link";
 import {green} from '@material-ui/core/colors';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import PulseLoader from "react-spinners/PulseLoader";
 
 const LinkTodo = ({url}) => {
     return (
         <LinkRoot>
             <Link href={'/todo/' + url}>
-                <LinkButton variant="contained" style={{color: green[500]}}>
+                <LinkButton variant="contained" style={{height: "40px",color: green[500]}}>
                     <CheckCircleOutlineIcon style={{color: green[500]}}/>
                     TODOリストに移動
                 </LinkButton>
@@ -30,7 +31,7 @@ const TitleNameField = ({input, label, type, disabled, meta: {error}}) => (
 );
 
 let CreateForm = props => {
-    const {handleSubmit, url} = props;
+    const {handleSubmit, url, isLoading} = props;
     return (
         <Root onSubmit={handleSubmit}>
             <Title>
@@ -41,11 +42,15 @@ let CreateForm = props => {
                 />
             </Title>
             {url ? <LinkTodo url={url}/> : <CreateButton
+                style={{height: "40px"}}
                 color="primary"
                 variant="contained"
                 type="submit"
-                disabled={props.invalid}>
-                GO
+                disabled={props.invalid} >
+                {isLoading ? <Loading
+                    size={8}
+                    color={"white"}
+                    loading={true} />: 'GO'}
             </CreateButton>}
         </Root>
     )
@@ -93,6 +98,14 @@ const Title = styled.div`
 
 export const CreateButton = styled(Button)`
     width: 80%;
+    
+`;
+
+export const Loading = styled(PulseLoader)`
+    width: 100%;
+    height: 10px;
+    color: black;
+    transform: scale(0.5, 0.5);
 `;
 
 export const LinkRoot = styled.div`

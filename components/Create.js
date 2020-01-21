@@ -18,6 +18,7 @@ class Create extends React.Component {
                 <CreateForm
                     url={this.props.url}
                     onSubmit={title => this.props.create(title.text)}
+                    isLoading={this.props.isLoading}
                 />
             </Root>
         )
