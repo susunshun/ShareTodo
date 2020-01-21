@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ShareIcon from '@material-ui/icons/Share';
 import EventForm from "./EventForm";
 import ShareModal from "../containers/ShareModal";
+import {IconButton} from "@material-ui/core";
 
 class EventTitle extends React.Component {
     componentDidMount() {
@@ -17,7 +18,7 @@ class EventTitle extends React.Component {
                     onSubmit={event => this.props.updateEventTitle(event.title, this.props.pid)}
                     initialValues={this.props.event}/>
                 <Icon onClick={() => this.props.toggleModal()}>
-                    <ShareIcon style={{}}/>
+                    <ShareIcon style={{color: "white"}}/>
                 </Icon>
             </Root>
         )
@@ -37,8 +38,7 @@ export const Root = styled.div`
     height: 40px;
 `;
 
-export const Icon = styled(ShareIcon)`
-    height: 14px;
+export const Icon = styled(IconButton)`
     padding-right: 10px;
     color:white;
 `;
