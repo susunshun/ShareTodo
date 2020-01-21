@@ -9,6 +9,7 @@ class Layout extends Component {
             <Root {...this.props}>
                 <Head>
                     <title>{this.props.title}</title>
+                    <link rel='icon' href='../static/favicon.ico' />
                     <meta charSet='utf-8'/>
                     <meta name='viewport' content='initial-scale=1.0, width-device-width'/>
                 </Head>

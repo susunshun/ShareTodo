@@ -5,7 +5,7 @@ import Create from "../containers/Create";
 
 export default () => {
     return (
-        <Layout title="TODOリストの作成" backgroundImage="background_memo.jpg" iconColor="black">
+        <Layout title="ShareTodo" backgroundImage="background_memo.jpg" iconColor="black">
             <Content>
                 <Create />
             </Content>

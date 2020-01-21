@@ -12,7 +12,7 @@ export default () => {
     const {pid} = router.query;
 
     return (
-        <Layout title="ここにロゴが入る" backgroundImage="background2.jpeg" iconColor="white">
+        <Layout title="ShareTodo" backgroundImage="background2.jpeg" iconColor="white">
             <Content>
                 <EventTitle pid={pid} />
                 <AddTodo pid={pid} />
