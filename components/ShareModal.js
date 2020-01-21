@@ -1,12 +1,21 @@
-import React from 'react'
-import Modal from 'styled-react-modal'
+import React from 'react';
+import Modal from 'styled-react-modal';
 import styled from "styled-components";
-import {green} from '@material-ui/core/colors';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import DoneIcon from '@material-ui/icons/Done';
 import Button from '@material-ui/core/Button';
 
 class ShareModal extends React.Component {
+    copyToClipboard = (text) => {
+        let textField = document.createElement('textarea');
+        textField.innerText = text;
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
+    };
+
     render() {
+        const shareUrl = "https://nextapp.susunshun.now.sh/todo/" + this.props.shareId;
         return (
             <Root
                 isOpen={this.props.modalIsOpen && this.props.modalType === 'SHARE'}
@@ -15,13 +24,19 @@ class ShareModal extends React.Component {
                 <Content>
                     <Description>このURLでTODOリストを共有できます</Description>
                     <ShareUrl>
-                        <span>{"https://nextapp.susunshun.now.sh/todo/" + this.props.shareId}</span>
+                        <span>{shareUrl}</span>
                     </ShareUrl>
                     <ShareButton>
-                        <Button variant="contained" style={{color: green[500]}}>
-                            <CheckCircleOutlineIcon style={{color: green[500]}}/>
-                            コピーする
-                        </Button>
+                        {this.props.copied ?
+                            <Button color="secondary">
+                                <DoneIcon />コピーしました
+                            </Button>
+                            : <Button color="primary" onClick={() => {
+                                this.copyToClipboard(shareUrl);
+                                this.props.toggleCopy();
+                            }}>
+                                コピーする
+                            </Button>}
                     </ShareButton>
                 </Content>
             </Root>
@@ -33,7 +48,6 @@ ShareModal.propTypes = {};
 
 export const Root = Modal.styled`
     width: 90%;
-    // height: 100px;
     background-color: white;
     border-radius: 5px;
 `;
@@ -61,7 +75,7 @@ export const ShareUrl = styled.div`
     margin-bottom: 20px;
 `;
 
-export const ShareButton = styled(Button)`
+export const ShareButton = styled.div`
     display: flex;
     justify-content: center;
 `;

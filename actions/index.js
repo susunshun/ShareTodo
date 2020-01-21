@@ -326,3 +326,9 @@ export const toggleModal = (todo) => async dispatch => {
     }
 };
 
+export const toggleCopy = () => async dispatch => {
+    dispatch({
+        type: 'TOGGLE_COPY'
+    })
+};
+
