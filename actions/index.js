@@ -282,25 +282,26 @@ export const updateTodo = (todo, pid) => async dispatch => {
     );
 };
 
+export const failRequestTags = (error) => ({
+    type: 'ERROR',
+    code: error,
+});
+
 export const fetchEvent = (pid) => async dispatch => {
-    const ref = db.collection('events').doc(pid);
-    ref.get().then((doc) => {
-        if (doc.exists) {
+    fetch('http://localhost:3000/api/events?eventId=' + pid)
+        .then(response => {
+            if (!response.ok) {
+                dispatch(failRequestTags(response.status))
+                throw new Error(response.statusText);
+            }
+            return response.json()
+        })
+        .then(res =>
             dispatch({
                 type: 'FETCH_EVENT',
-                event: doc.data()
-            });
-        } else {
-            // TODO: ルーティングが変わったときにフィルター処理で行いたいよね
-            dispatch({
-                type: 'ERROR',
-                code: 404
-            });
-            // TODO: 該当するタスクがなかったことの表示を行いたい
-        }
-    }).catch((error) => {
-        console.log(`データを取得できませんでした (${error})`);
-    });
+                event: res
+            })
+        ).catch(error => console.log(error));
 };
 
 export const updateEventTitle = (title, pid) => async dispatch => {
