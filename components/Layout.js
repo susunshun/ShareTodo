@@ -11,7 +11,7 @@ class Layout extends Component {
                     <title>{this.props.title}</title>
                     <link rel='icon' href='../static/favicon.ico' />
                     <meta charSet='utf-8'/>
-                    <meta name='viewport' content='initial-scale=1.0, width-device-width'/>
+                    <meta name='viewport' content='initial-scale=1.0, minimum-scale=1.0, min-width-device-width'/>
                 </Head>
                 {this.props.error.code ? <Header /> : <Header iconColor={this.props.iconColor} hideHeader={this.props.hideHeader} title={this.props.title} deleteId={this.props.deleteId} back={this.props.back} />}
                 <Content>{Page(this.props.error, this.props.children)}</Content>
