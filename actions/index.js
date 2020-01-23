@@ -1,5 +1,7 @@
 import {db} from '../lib/db';
 
+const API_ROOT = "http://localhost:3000/api"
+
 export const create = title => async dispatch => {
     dispatch({
         type: 'REQUEST_FETCH'
@@ -288,7 +290,7 @@ export const failRequestTags = (error) => ({
 });
 
 export const fetchEvent = (pid) => async dispatch => {
-    fetch('http://localhost:3000/api/events?eventId=' + pid)
+    fetch(API_ROOT +'/events/' + pid)
         .then(response => {
             if (!response.ok) {
                 dispatch(failRequestTags(response.status))
@@ -305,22 +307,31 @@ export const fetchEvent = (pid) => async dispatch => {
 };
 
 export const updateEventTitle = (title, pid) => async dispatch => {
-    await new Promise(
-        (resolve, reject) => {
-            db.collection('events').doc(pid).update({
-                title: title
-            }).then(() => {
-                dispatch({
-                    type: 'UPDATE_EVENT_TITLE',
-                    title
-                });
-                resolve();
-            }).catch(error => {
-                console.log(`データを更新できませんでした (${error})`);
-                reject(error)
+    fetch(API_ROOT+ '/events/' + pid, {
+        method: "PUT", // *GET, POST, PUT, DELETE, etc.
+        mode: "same-origin", // no-cors, cors, *same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, same-origin, *omit
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+        },
+        redirect: "follow", // manual, *follow, error
+        referrer: "no-referrer", // no-referrer, *client
+        body: JSON.stringify({title: title}), // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
+    })
+        .then(response => {
+            if (!response.ok) {
+                dispatch(failRequestTags(response.status))
+                throw new Error(response.statusText);
+            }
+            return response.json()
+        })
+        .then(res =>
+            dispatch({
+                type: 'UPDATE_EVENT_TITLE',
+                res
             })
-        }
-    );
+        ).catch(error => console.log(error));
 };
 
 export const toggleModal = (todo) => async dispatch => {
