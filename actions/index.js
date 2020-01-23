@@ -1,6 +1,6 @@
 import {db} from '../lib/db';
 
-const API_ROOT = "http://localhost:3000/api"
+const API_ROOT = process.env.API_ROOT;
 
 export const create = title => async dispatch => {
     dispatch({
