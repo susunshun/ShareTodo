@@ -41,7 +41,7 @@ export default (req, res) => {
 };
 
 
-async function addTodo(ref, res,text) {
+async function addTodo(ref, res, text) {
     let order = await new Promise((resolve, reject) => {
         ref.orderBy("order", "desc").limit(1)
             .get()
