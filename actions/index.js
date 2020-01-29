@@ -139,24 +139,26 @@ export const create = title => async dispatch => {
     dispatch({
         type: 'REQUEST_FETCH'
     });
-    await new Promise(
-        (resolve, reject) => {
-            db.collection('events').add({
-                title: title
-            }).then(doc => {
+    fetch(API_ROOT + '/events', build_request("POST", {title: title}))
+        .then(response => {
+            if (!response.ok) {
+                dispatch(failRequestTags(response.status));
+                throw new Error(response.statusText);
+            }
+            return response.json()
+        })
+        .then(res => {
                 dispatch({
                     type: 'CREATE',
-                    id: doc.id
+                    id: res.id
                 });
                 dispatch({
                     type: 'SUCCESS_FETCH'
                 });
-                resolve(doc.id);
-            }).catch(error => {
-                dispatch({
-                    type: 'FAILED_FETCH'
-                });
-                reject(error)
+            }
+        ).catch(error => {
+            dispatch({
+                type: 'FAILED_FETCH'
             })
         }
     );
