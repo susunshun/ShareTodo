@@ -244,31 +244,6 @@ export const toggleTodo = (id, completed, pid) => async dispatch => {
     );
 };
 
-export const fetchDetail = (id) => async dispatch => {
-    dispatch({
-        type: 'NONE',
-        code: 200
-    });
-    const ref = db.collection('todos').doc(id);
-    ref.get().then((doc) => {
-        if (doc.exists) {
-            dispatch({
-                type: 'FETCH_DETAIL',
-                todo: {...doc.data(), id: doc.id}
-            });
-        } else {
-            // TODO: ルーティングが変わったときにフィルター処理で行いたいよね
-            dispatch({
-                type: 'ERROR',
-                code: 404
-            });
-            // TODO: 該当するタスクがなかったことの表示を行いたい
-        }
-    }).catch((error) => {
-        console.log(`データを取得できませんでした (${error})`);
-    });
-};
-
 export const fetchEvent = (pid) => async dispatch => {
     fetch(API_ROOT + '/events/' + pid)
         .then(response => {
