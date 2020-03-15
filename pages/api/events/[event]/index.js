@@ -24,7 +24,7 @@ export default (req, res) => {
         ref.update({
             title: req.body.title
         }).then(() => {
-            res.status(200)
+            res.status(200).json({message: `success`});
         }).catch(error => {
             res.status(500).json({message: `error`});
             console.log(`データを取得できませんでした (${error})`);

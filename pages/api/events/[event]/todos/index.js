@@ -61,6 +61,7 @@ async function addTodo(ref, res, text) {
         ref.add({
             text: text,
             completed: false,
+            memo: "",
             order: order
         }).then((doc) => {
             resolve({id: doc.id, order: order})

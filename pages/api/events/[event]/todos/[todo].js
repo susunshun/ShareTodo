@@ -14,7 +14,7 @@ export default (req, res) => {
             text: req.body.text,
             memo: req.body.memo
         }).then(() => {
-            res.status(200)
+            res.status(200).json({message: `success`})
         }).catch(error => {
             res.status(500).json({message: `error`});
             console.log(`データを取得できませんでした (${error})`);
