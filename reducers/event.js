@@ -1,11 +1,11 @@
-const event = (state = {title:""}, action) => {
+const event = (state = {}, action) => {
     switch (action.type) {
         case 'FETCH_EVENT':
             return action.event;
         case 'UPDATE_EVENT_TITLE':
-            return {title: action.title};
+            return state;
         default:
-            return state
+            return state;
     }
 };
 

@@ -264,7 +264,7 @@ export const fetchEvent = (pid) => async dispatch => {
 };
 
 export const updateEventTitle = (title, pid) => async dispatch => {
-    fetch(API_ROOT + '/events/' + pid, build_request("POST", {title: title}))
+    fetch(API_ROOT + '/events/' + pid, build_request("PUT", {title: title}))
         .then(response => {
             if (!response.ok) {
                 dispatch(failRequestTags(response.status))
