@@ -139,7 +139,8 @@ export const create = title => async dispatch => {
     dispatch({
         type: 'REQUEST_FETCH'
     });
-    fetch(API_ROOT + '/events', build_request("POST", {title: title}))
+    fetch(API_ROOT + '/events' +
+        '', build_request("POST", {title: title}))
         .then(response => {
             if (!response.ok) {
                 dispatch(failRequestTags(response.status));
@@ -174,40 +175,17 @@ export const onDrop = (dropResult, pid) => async dispatch => {
         toOrder: toOrder
     });
 
-    let result = await new Promise((resolve, reject) => {
-        db.collection('events').doc(pid).collection("todos").orderBy("order")
-            .get()
-            .then(snapshot => {
-                let data = []
-                snapshot.forEach((doc) => {
-                    data.push(
-                        {
-                            id: doc.id,
-                            order: doc.data().order
-                        }
-                    )
-                });
-                resolve(data)
-            }).catch(error => {
-            reject([])
-        })
-    });
-    let insertIndex = toOrder > fromOrder ? toOrder + 1 : toOrder;
-    let deleteIndex = toOrder > fromOrder ? fromOrder : fromOrder + 1;
-    let list = result.slice(0, result.length);
-    list.splice(insertIndex, 0, result[fromOrder]);
-    list.splice(deleteIndex, 1);
-
-    // TODO: ここでStateの件数と差分があったら処理中断してリロードしたい
-    // 「他の人が編集中です」的なアラート出して
-    // TODO: トランザクション/バッチ処理にする
-    await Promise.all(list.map(async (todo, index) => {
-        return await updateOrder(todo.id, index, pid)
-    }));
+    fetch(API_ROOT + '/events/' + pid + '/order/', build_request("POST", {event: pid, fromOrder: fromOrder, toOrder: toOrder}))
+        .then(response => {
+            if (!response.ok) {
+                dispatch(failRequestTags(response.status))
+                throw new Error(response.statusText);
+            }
+            return response.json()
+        }).catch(error => console.log(error));
 };
 
 async function updateOrder(id, order, pid) {
-    console.log(id)
     await new Promise(
         (resolve, reject) => {
             db.collection('events').doc(pid).collection("todos").doc(id).update({
