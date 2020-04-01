@@ -89,50 +89,26 @@ export const addTodo = (text, pid) => async dispatch => {
 };
 
 export const deleteTodo = (id, pid) => async dispatch => {
-    let result = await new Promise((resolve, reject) => {
-        db.collection('events').doc(pid).collection("todos").orderBy("order")
-            .get()
-            .then(snapshot => {
-                let data = []
-                snapshot.forEach((doc) => {
-                    data.push(
-                        {
-                            id: doc.id,
-                            order: doc.data().order
-                        }
-                    )
+    fetch(API_ROOT + '/events/' + pid + '/todos/' + id, build_request("DELETE", {}))
+        .then(response => {
+            if (!response.ok) {
+                dispatch(failRequestTags(response.status));
+                throw new Error(response.statusText);
+            }
+            return response.json()
+        })
+        .then(res => {
+                console.log(res);
+                dispatch({
+                    type: 'DELETE_TODO',
+                    id
                 });
-                resolve(data)
-            }).catch(error => {
-            reject([])
-        })
-    });
-
-    let list = result.filter(todo => todo.id !== id);
-
-    //　TODO:トランザクション処理にしたい
-    await new Promise((resolve, reject) => {
-        const ref = db.collection('events').doc(pid).collection("todos").doc(id);
-        ref.delete().then(() => {
-            dispatch({
-                type: 'DELETE_TODO',
-                id
-            });
-            dispatch({
-                type: 'TOGGLE_MODAL',
-                todo: {}
-            });
-            resolve();
-        }).catch((error) => {
-            // TODO: 削除エラーを表示する
-            reject();
-            console.log(`データを削除できませんでした (${error})`);
-        })
-    });
-
-    await Promise.all(list.map(async (todo, index) => {
-        return await updateOrder(todo.id, index, pid)
-    }));
+                dispatch({
+                    type: 'TOGGLE_MODAL',
+                    todo: {}
+                });
+            }
+        ).catch(error => console.log(error));
 };
 
 export const create = title => async dispatch => {
@@ -188,20 +164,6 @@ export const onDrop = (dropResult, pid) => async dispatch => {
             return response.json()
         }).catch(error => console.log(error));
 };
-
-async function updateOrder(id, order, pid) {
-    await new Promise(
-        (resolve, reject) => {
-            db.collection('events').doc(pid).collection("todos").doc(id).update({
-                order: order
-            }).then(() => {
-                resolve(id);
-            }).catch(error => {
-                reject(error)
-            })
-        }
-    );
-}
 
 export const setVisibilityFilter = filter => ({
     type: 'SET_VISIBILITY_FILTER',
