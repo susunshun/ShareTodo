@@ -175,7 +175,11 @@ export const onDrop = (dropResult, pid) => async dispatch => {
         toOrder: toOrder
     });
 
-    fetch(API_ROOT + '/events/' + pid + '/order/', build_request("POST", {event: pid, fromOrder: fromOrder, toOrder: toOrder}))
+    fetch(API_ROOT + '/events/' + pid + '/order/', build_request("POST", {
+        event: pid,
+        fromOrder: fromOrder,
+        toOrder: toOrder
+    }))
         .then(response => {
             if (!response.ok) {
                 dispatch(failRequestTags(response.status))
@@ -209,19 +213,15 @@ export const toggleTodo = (id, completed, pid) => async dispatch => {
         type: 'TOGGLE_TODO',
         id
     });
-    // TODO: 通信中はリストをdeactiveにしたほうがよさそう
-    // 連打して複数リクエストすると表示とデータがずれるため
-    await new Promise(
-        (resolve, reject) => {
-            db.collection('events').doc(pid).collection("todos").doc(id).update({
-                completed: !completed
-            }).then(() => {
-                resolve(id);
-            }).catch(error => {
-                reject(error)
-            })
-        }
-    );
+
+    fetch(API_ROOT + '/events/' + pid + '/todos/' + id + '/complete/', build_request("POST", {completed: !completed}))
+        .then(response => {
+            if (!response.ok) {
+                dispatch(failRequestTags(response.status))
+                throw new Error(response.statusText);
+            }
+            return response.json()
+        }).catch(error => console.log(error));
 };
 
 export const fetchEvent = (pid) => async dispatch => {

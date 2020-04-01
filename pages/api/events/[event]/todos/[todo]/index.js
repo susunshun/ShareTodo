@@ -1,6 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import {db} from '../../../../../lib/db'
+import {db} from '../../../../../../lib/db'
 
 export default (req, res) => {
     const {
