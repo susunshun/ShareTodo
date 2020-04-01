@@ -1,5 +1,3 @@
-import {db} from '../lib/db';
-
 const API_ROOT = process.env.API_ROOT;
 
 export const VisibilityFilters = {

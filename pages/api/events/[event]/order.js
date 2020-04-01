@@ -1,4 +1,3 @@
-import firebase from 'firebase/app'
 import 'firebase/firestore'
 import {db} from '../../../../lib/db'
 
@@ -8,9 +7,8 @@ export default (req, res) => {
     } = req;
 
     const {fromOrder, toOrder} = req.body
-    
-    let firestore = firebase.firestore();
-    const ref = firestore.collection('events').doc(event);
+
+    const ref = db.collection('events').doc(event);
     if (req.method === 'GET') {
 
     } else if (req.method === 'POST') {

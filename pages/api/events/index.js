@@ -1,10 +1,8 @@
-import firebase from 'firebase/app'
 import 'firebase/firestore'
 import {db} from '../../../lib/db'
 
 export default (req, res) => {
-    let firestore = firebase.firestore();
-    const ref = firestore.collection('events');
+    const ref = db.collection('events');
     if (req.method === 'POST') {
         ref.add({
             title: req.body.title,

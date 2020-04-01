@@ -1,4 +1,3 @@
-import firebase from 'firebase/app'
 import 'firebase/firestore'
 import {db} from '../../../../../../lib/db'
 
@@ -7,8 +6,7 @@ export default (req, res) => {
         query: {event, todo},
     } = req;
 
-    let firestore = firebase.firestore();
-    const ref = firestore.collection('events').doc(event).collection("todos").doc(todo);
+    const ref = db.collection('events').doc(event).collection("todos").doc(todo);
     if (req.method === 'POST') {
         ref.update({
             completed: req.body.completed,

@@ -1,4 +1,3 @@
-import firebase from 'firebase/app'
 import 'firebase/firestore'
 import {db} from '../../../../../../lib/db'
 
@@ -7,9 +6,8 @@ export default (req, res) => {
         query: {event, todo},
     } = req;
 
-    let firestore = firebase.firestore();
-    const ref = firestore.collection('events').doc(event).collection("todos").doc(todo);
-    const refEvent = firestore.collection('events').doc(event);
+    const ref = db.collection('events').doc(event).collection("todos").doc(todo);
+    const refEvent = db.collection('events').doc(event);
     if (req.method === 'PUT') {
         ref.update({
             text: req.body.text,
@@ -35,7 +33,6 @@ async function deleteTodo(ref, refEvent, targetTodo) {
         refEvent.collection("todos").orderBy("order")
             .get()
             .then(snapshot => {
-
                 let data = []
                 snapshot.forEach((doc) => {
                     data.push(
