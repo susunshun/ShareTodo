@@ -4,16 +4,16 @@ import EventTitle from "../components/EventTitle";
 import {fetchEvent, updateEventTitle, toggleModal} from "../actions";
 
 const mapStateToProps = state => ({
-    event: state.event
+  event: state.event
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchEvent: (pid) => dispatch(fetchEvent(pid)),
-    updateEventTitle: (title, pid) => dispatch(updateEventTitle(title, pid)),
-    toggleModal: () => dispatch(toggleModal())
+  fetchEvent: (pid) => dispatch(fetchEvent(pid)),
+  updateEventTitle: (title, pid) => dispatch(updateEventTitle(title, pid)),
+  toggleModal: () => dispatch(toggleModal())
 });
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(EventTitle)

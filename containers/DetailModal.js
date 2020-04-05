@@ -4,18 +4,18 @@ import {toggleModal, deleteTodo, updateTodo} from '../actions';
 import DetailModal from "../components/DetailModal";
 
 const mapStateToProps = state => ({
-    modalIsOpen: state.modal.modalIsOpen,
-    modalType : state.modal.modalType,
-    todo: state.modal.todo
+  modalIsOpen: state.modal.modalIsOpen,
+  modalType: state.modal.modalType,
+  todo: state.modal.todo
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleModal: (todo) => dispatch(toggleModal(todo)),
-    deleteTodo: (id, pid) => dispatch(deleteTodo(id, pid)),
-    updateTodo: (todo, pid) => dispatch(updateTodo(todo, pid))
+  toggleModal: (todo) => dispatch(toggleModal(todo)),
+  deleteTodo: (id, pid) => dispatch(deleteTodo(id, pid)),
+  updateTodo: (todo, pid) => dispatch(updateTodo(todo, pid))
 });
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(DetailModal)

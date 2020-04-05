@@ -9,51 +9,51 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import PulseLoader from "react-spinners/PulseLoader";
 
 const LinkTodo = ({url}) => {
-    return (
-        <LinkRoot>
-            <Link href={'/todo/' + url}>
-                <LinkButton variant="contained" style={{height: "40px",color: green[500]}}>
-                    <CheckCircleOutlineIcon style={{color: green[500]}}/>
-                    TODOリストに移動
-                </LinkButton>
-            </Link>
-        </LinkRoot>
-    )
+  return (
+    <LinkRoot>
+      <Link href={'/todo/' + url}>
+        <LinkButton variant="contained" style={{height: "40px", color: green[500]}}>
+          <CheckCircleOutlineIcon style={{color: green[500]}}/>
+          TODOリストに移動
+        </LinkButton>
+      </Link>
+    </LinkRoot>
+  )
 };
 
 const TitleNameField = ({input, label, type, disabled, meta: {error}}) => (
-    <div>
-        <TitleInput {...input} type={type} placeholder={label} autocomplete="off" disabled={disabled}/>
-        <Error>
-            {((error && (error !== '入力必須です') && <ErrorMessage>{error}</ErrorMessage>))}
-        </Error>
-    </div>
+  <div>
+    <TitleInput {...input} type={type} placeholder={label} autocomplete="off" disabled={disabled}/>
+    <Error>
+      {((error && (error !== '入力必須です') && <ErrorMessage>{error}</ErrorMessage>))}
+    </Error>
+  </div>
 );
 
 let CreateForm = props => {
-    const {handleSubmit, url, isLoading} = props;
-    return (
-        <Root onSubmit={handleSubmit}>
-            <Title>
-                <Field name="text" type="text"
-                       component={TitleNameField} label='ex.買い物メモ'
-                       disabled={url}
-                       validate={[required, maxLength20]}
-                />
-            </Title>
-            {url ? <LinkTodo url={url}/> : <CreateButton
-                style={{height: "40px"}}
-                color="primary"
-                variant="contained"
-                type="submit"
-                disabled={props.invalid} >
-                {isLoading ? <Loading
-                    size={8}
-                    color={"white"}
-                    loading={true} />: 'GO'}
-            </CreateButton>}
-        </Root>
-    )
+  const {handleSubmit, url, isLoading} = props;
+  return (
+    <Root onSubmit={handleSubmit}>
+      <Title>
+        <Field name="text" type="text"
+               component={TitleNameField} label='ex.買い物メモ'
+               disabled={url}
+               validate={[required, maxLength20]}
+        />
+      </Title>
+      {url ? <LinkTodo url={url}/> : <CreateButton
+        style={{height: "40px"}}
+        color="primary"
+        variant="contained"
+        type="submit"
+        disabled={props.invalid}>
+        {isLoading ? <Loading
+          size={8}
+          color={"white"}
+          loading={true}/> : 'GO'}
+      </CreateButton>}
+    </Root>
+  )
 };
 
 
@@ -121,8 +121,8 @@ export const LinkButton = styled(Button)`
 `;
 
 CreateForm = reduxForm({
-    form: 'create',
-    enableReinitialize: true
+  form: 'create',
+  enableReinitialize: true
 })(CreateForm);
 
 export default CreateForm
