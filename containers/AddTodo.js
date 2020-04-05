@@ -6,10 +6,10 @@ import {addTodo} from '../actions';
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-    addTodo: (text, pid) => dispatch(addTodo(text, pid))
+  addTodo: (text, pid) => dispatch(addTodo(text, pid))
 });
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(AddTodo)

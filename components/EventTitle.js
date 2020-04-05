@@ -6,23 +6,23 @@ import ShareModal from "../containers/ShareModal";
 import {IconButton} from "@material-ui/core";
 
 class EventTitle extends React.Component {
-    componentDidMount() {
-        this.props.fetchEvent(this.props.pid);
-    }
+  componentDidMount() {
+    this.props.fetchEvent(this.props.pid);
+  }
 
-    render() {
-        return (
-            <Root>
-                <ShareModal shareId={this.props.pid}/>
-                <EventForm
-                    onSubmit={event => this.props.updateEventTitle(event.title, this.props.pid)}
-                    initialValues={this.props.event}/>
-                <Icon onClick={() => this.props.toggleModal()}>
-                    <ShareIcon style={{color: "white"}}/>
-                </Icon>
-            </Root>
-        )
-    }
+  render() {
+    return (
+      <Root>
+        <ShareModal shareId={this.props.pid}/>
+        <EventForm
+          onSubmit={event => this.props.updateEventTitle(event.title, this.props.pid)}
+          initialValues={this.props.event}/>
+        <Icon onClick={() => this.props.toggleModal()}>
+          <ShareIcon style={{color: "white"}}/>
+        </Icon>
+      </Root>
+    )
+  }
 }
 
 EventTitle.propTypes = {};

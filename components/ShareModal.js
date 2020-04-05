@@ -5,43 +5,43 @@ import DoneIcon from '@material-ui/icons/Done';
 import Button from '@material-ui/core/Button';
 
 class ShareModal extends React.Component {
-    copyToClipboard = (text) => {
-        let textField = document.createElement('textarea');
-        textField.innerText = text;
-        document.body.appendChild(textField);
-        textField.select();
-        document.execCommand('copy');
-        textField.remove();
-    };
+  copyToClipboard = (text) => {
+    let textField = document.createElement('textarea');
+    textField.innerText = text;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
+  };
 
-    render() {
-        const shareUrl = "https://nextapp.susunshun.now.sh/todo/" + this.props.shareId;
-        return (
-            <Root
-                isOpen={this.props.modalIsOpen && this.props.modalType === 'SHARE'}
-                onBackgroundClick={() => this.props.toggleModal()}
-                onEscapeKeydown={() => this.props.toggleModal()}>
-                <Content>
-                    <Description>このURLでTODOリストを共有できます</Description>
-                    <ShareUrl>
-                        <span>{shareUrl}</span>
-                    </ShareUrl>
-                    <ShareButton>
-                        {this.props.copied ?
-                            <Button color="secondary">
-                                <DoneIcon />コピーしました
-                            </Button>
-                            : <Button color="primary" onClick={() => {
-                                this.copyToClipboard(shareUrl);
-                                this.props.toggleCopy();
-                            }}>
-                                コピーする
-                            </Button>}
-                    </ShareButton>
-                </Content>
-            </Root>
-        )
-    }
+  render() {
+    const shareUrl = "https://nextapp.susunshun.now.sh/todo/" + this.props.shareId;
+    return (
+      <Root
+        isOpen={this.props.modalIsOpen && this.props.modalType === 'SHARE'}
+        onBackgroundClick={() => this.props.toggleModal()}
+        onEscapeKeydown={() => this.props.toggleModal()}>
+        <Content>
+          <Description>このURLでTODOリストを共有できます</Description>
+          <ShareUrl>
+            <span>{shareUrl}</span>
+          </ShareUrl>
+          <ShareButton>
+            {this.props.copied ?
+              <Button color="secondary">
+                <DoneIcon/>コピーしました
+              </Button>
+              : <Button color="primary" onClick={() => {
+                this.copyToClipboard(shareUrl);
+                this.props.toggleCopy();
+              }}>
+                コピーする
+              </Button>}
+          </ShareButton>
+        </Content>
+      </Root>
+    )
+  }
 }
 
 ShareModal.propTypes = {};

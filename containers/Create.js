@@ -4,15 +4,15 @@ import {create} from '../actions';
 import Create from "../components/Create";
 
 const mapStateToProps = state => ({
-    url: state.create.url,
-    isLoading: state.loading.isLoading
+  url: state.create.url,
+  isLoading: state.loading.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-    create: title => dispatch(create(title))
+  create: title => dispatch(create(title))
 });
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Create)

@@ -3,13 +3,12 @@ import {connect} from 'react-redux'
 import Layout from '../components/Layout'
 
 const mapStateToProps = state => ({
-    error: state.error
+  error: state.error
 });
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Layout)
