@@ -4,46 +4,46 @@ import styled from "styled-components";
 import AddIcon from '@material-ui/icons/Add';
 
 class AddTodo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.textInput = React.createRef();
-    }
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+  }
 
-    render() {
-        const {userPost} = this.props;
+  render() {
+    const {userPost} = this.props;
 
-        return (
-            <Root>
-                <AddButton
-                    onClick={() => {
-                        if (this.textInput.current.value) {
-                            this.props.addTodo(this.textInput.current.value, this.props.pid);
-                            this.textInput.current.value = ''
-                        }
-                    }}
+    return (
+      <Root>
+        <AddButton
+          onClick={() => {
+            if (this.textInput.current.value) {
+              this.props.addTodo(this.textInput.current.value, this.props.pid);
+              this.textInput.current.value = ''
+            }
+          }}
 
-                />
-                <InputArea
-                    type="text"
-                    defaultValue=""
-                    placeholder="Todoを追加"
-                    value={userPost}
-                    ref={this.textInput}
-                    onKeyPress={(e) => {
-                        if (e.key === 'Enter' && this.textInput.current.value) { // Enterキー除外
-                            this.props.addTodo(this.textInput.current.value, this.props.pid);
-                            this.textInput.current.value = ''
-                        }
-                    }}
-                />
-            </Root>
+        />
+        <InputArea
+          type="text"
+          defaultValue=""
+          placeholder="Todoを追加"
+          value={userPost}
+          ref={this.textInput}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter' && this.textInput.current.value) { // Enterキー除外
+              this.props.addTodo(this.textInput.current.value, this.props.pid);
+              this.textInput.current.value = ''
+            }
+          }}
+        />
+      </Root>
 
-        )
-    }
+    )
+  }
 }
 
 AddTodo.propTypes = {
-    addTodo: PropTypes.func.isRequired
+  addTodo: PropTypes.func.isRequired
 };
 
 export const Root = styled.div`

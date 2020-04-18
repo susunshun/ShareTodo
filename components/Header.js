@@ -4,24 +4,24 @@ import DeleteTodo from "../containers/DeleteTodo"
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 class Header extends Component {
-    render() {
-        return (
-            <Root {...this.props}>
-                {this.props.hideHeader ? '' :
-                        <div>
-                            {this.props.deleteId ? <ArrowBackIcon onClick={this.props.back}/> : ''}
-                            <Title>
-                                <img height="40px;" src={"../static/logo_" + this.props.iconColor + ".png"}/>
-                            </Title>
-                            <Delete>
-                                {this.props.deleteId ?
-                                    <DeleteTodo id={this.props.deleteId} back={this.props.back}/> : ''}
-                            </Delete>
-                        </div>
-                }
-            </Root>
-        );
-    }
+  render() {
+    return (
+      <Root {...this.props}>
+        {this.props.hideHeader ? '' :
+          <div>
+            {this.props.deleteId ? <ArrowBackIcon onClick={this.props.back}/> : ''}
+            <Title>
+              <img height="40px;" src={"../static/logo_" + this.props.iconColor + ".png"}/>
+            </Title>
+            <Delete>
+              {this.props.deleteId ?
+                <DeleteTodo id={this.props.deleteId} back={this.props.back}/> : ''}
+            </Delete>
+          </div>
+        }
+      </Root>
+    );
+  }
 }
 
 export const Root = styled.div`

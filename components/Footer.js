@@ -3,11 +3,12 @@ import styled from 'styled-components';
 
 class Footer extends Component {
   render() {
-    return(
-        <Root>{this.props.footer}</Root>
+    return (
+      <Root>{this.props.footer}</Root>
     );
   }
 }
+
 export default Footer;
 
 const Root = styled.footer`

@@ -6,10 +6,10 @@ import DeleteTodo from "../components/DeleteTodo";
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-    deleteTodo: id => dispatch(deleteTodo(id))
+  deleteTodo: id => dispatch(deleteTodo(id))
 });
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(DeleteTodo)

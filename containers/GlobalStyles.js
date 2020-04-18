@@ -1,4 +1,4 @@
-import {createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap');

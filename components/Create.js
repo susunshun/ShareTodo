@@ -3,26 +3,26 @@ import styled from 'styled-components';
 import CreateForm from "./CreateForm";
 
 class Create extends React.Component {
-    render() {
-        return (
-            <Root>
-                <Description>
-                    <TitleSpan>
-                        TODO作ってすぐ共有。
-                    </TitleSpan>
-                    <DetailSpan>
-                        ShareTodoはTODOリストを作成してすぐ共有できます。
-                        買い物メモ、タスクリスト、etc...まずは気軽に作成してみましょう。
-                    </DetailSpan>
-                </Description>
-                <CreateForm
-                    url={this.props.url}
-                    onSubmit={title => this.props.create(title.text)}
-                    isLoading={this.props.isLoading}
-                />
-            </Root>
-        )
-    }
+  render() {
+    return (
+      <Root>
+        <Description>
+          <TitleSpan>
+            TODO作ってすぐ共有。
+          </TitleSpan>
+          <DetailSpan>
+            ShareTodoはTODOリストを作成してすぐ共有できます。
+            買い物メモ、タスクリスト、etc...まずは気軽に作成してみましょう。
+          </DetailSpan>
+        </Description>
+        <CreateForm
+          url={this.props.url}
+          onSubmit={title => this.props.create(title.text)}
+          isLoading={this.props.isLoading}
+        />
+      </Root>
+    )
+  }
 }
 
 Create.propTypes = {};

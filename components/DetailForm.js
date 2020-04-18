@@ -10,38 +10,38 @@ import {IconButton} from '@material-ui/core';
 
 
 let DetailForm = props => {
-    const {handleSubmit, deleteTodo, close} = props;
-    return (
-        <Root>
-            <form onSubmit={handleSubmit}>
-                <Title>
-                    <TodoText>
-                        <Field name="text" type="text"
-                               component={RenderField} label='TODOを入力'
-                               validate={[required, maxLength20]}
-                        />
-                    </TodoText>
-                    <IconButton aria-label="delete" onClick={deleteTodo}>
-                        <DeleteIcon color="secondary" style={{width: 20}}/>
-                    </IconButton>
-                </Title>
-                <Memo>
-                    <Notes>
-                        <NotesIcon style={{width: 20}}/>
-                    </Notes>
-                    <MemoField name="memo" type="textarea"
-                               component={RenderField} label='メモを記載'
-                    />
-                </Memo>
-                <ButtonGroup>
-                    <CancelButton onClick={close}>cancel</CancelButton>
-                    <ApplyButton color="primary"
-                                 type="submit"
-                                 disabled={props.invalid}>apply</ApplyButton>
-                </ButtonGroup>
-            </form>
-        </Root>
-    )
+  const {handleSubmit, deleteTodo, close} = props;
+  return (
+    <Root>
+      <form onSubmit={handleSubmit}>
+        <Title>
+          <TodoText>
+            <Field name="text" type="text"
+                   component={RenderField} label='TODOを入力'
+                   validate={[required, maxLength20]}
+            />
+          </TodoText>
+          <IconButton aria-label="delete" onClick={deleteTodo}>
+            <DeleteIcon color="secondary" style={{width: 20}}/>
+          </IconButton>
+        </Title>
+        <Memo>
+          <Notes>
+            <NotesIcon style={{width: 20}}/>
+          </Notes>
+          <MemoField name="memo" type="textarea"
+                     component={RenderField} label='メモを記載'
+          />
+        </Memo>
+        <ButtonGroup>
+          <CancelButton onClick={close}>cancel</CancelButton>
+          <ApplyButton color="primary"
+                       type="submit"
+                       disabled={props.invalid}>apply</ApplyButton>
+        </ButtonGroup>
+      </form>
+    </Root>
+  )
 };
 
 export const Root = styled.div`
@@ -100,8 +100,8 @@ export const ApplyButton = styled(Button)`
 
 
 DetailForm = reduxForm({
-    form: 'detail',
-    enableReinitialize: true
+  form: 'detail',
+  enableReinitialize: true
 })(DetailForm);
 
 export default DetailForm
