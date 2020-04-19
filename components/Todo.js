@@ -2,28 +2,33 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from "next/link";
-import Layout from "./Layout";
+import {Draggable} from "react-beautiful-dnd";
 
-
-const Todo = ({toggleTodo, onClick, completed, text}) => (
-  <Root>
-    <Checkbox
-      checked={completed}
-      value="secondary"
-      color="primary"
-      inputProps={{'aria-label': 'secondary checkbox'}}
-      onClick={toggleTodo}
-    />
-    <TodoText
-      onClick={onClick}
-      style={{
-        textDecoration: completed ? 'line-through' : 'none'
-      }}>
-      {text}
-    </TodoText>
-  </Root>
-
+const Todo = ({toggleTodo, onClick, completed, text, id, order}) => (
+  <Draggable draggableId={id} index={order} >
+    {provided => (
+      <Root
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+      >
+        <Checkbox
+          checked={completed}
+          value="secondary"
+          color="primary"
+          inputProps={{'aria-label': 'secondary checkbox'}}
+          onClick={toggleTodo}
+        />
+        <TodoText
+          onClick={onClick}
+          style={{
+            textDecoration: completed ? 'line-through' : 'none'
+          }}>
+          <p>{text}</p>
+        </TodoText>
+      </Root>
+    )}
+  </Draggable>
 );
 
 Todo.propTypes = {

@@ -140,8 +140,10 @@ export const create = title => async dispatch => {
 };
 
 export const onDrop = (dropResult, pid) => async dispatch => {
-  let toOrder = dropResult.addedIndex;
-  let fromOrder = dropResult.removedIndex;
+  let toOrder = dropResult.toOrder;
+  let fromOrder = dropResult.fromOrder;
+
+  console.log(dropResult)
 
   dispatch({
     type: 'CHANGE_ORDER',

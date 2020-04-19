@@ -6,10 +6,12 @@ import TodoList from "../../containers/TodoList"
 import AddTodo from "../../containers/AddTodo"
 import Filter from "../../components/Filter";
 import styled from "styled-components";
+import { resetServerContext } from 'react-beautiful-dnd';
 
 export default () => {
     const router = useRouter();
     const {pid} = router.query;
+    resetServerContext();
 
     return (
         <Layout title="ShareTodo" backgroundImage="background2.jpeg" iconColor="white">
